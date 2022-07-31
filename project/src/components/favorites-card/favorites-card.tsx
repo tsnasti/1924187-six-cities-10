@@ -7,7 +7,7 @@ type FavoritesItemProps = {
 
 const addPremiumStatus = (isPremium: boolean) => isPremium ? <div className="place-card__mark"><span>Premium</span></div> : '';
 
-export default function FavoritesCardComponent ({offer}: FavoritesItemProps): JSX.Element {
+export default function FavoritesCard ({offer}: FavoritesItemProps): JSX.Element {
   const {id, photoPreview, price, title, type, rating, isPremium} = offer;
   return (
     <article className="favorites__card place-card">

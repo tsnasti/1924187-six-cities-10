@@ -5,7 +5,7 @@ type FavoritesItemProps = {
   offer: Offer;
 };
 
-export default function FavoritesItemComponent ({offer}: FavoritesItemProps): JSX.Element {
+export default function FavoritesItem ({offer}: FavoritesItemProps): JSX.Element {
   const {isFavorite} = offer;
   const addCity = () => isFavorite ?
     <div className="locations__item">

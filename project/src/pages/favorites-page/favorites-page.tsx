@@ -1,6 +1,6 @@
 import Logo from '../../components/logo/logo';
 import Navigation from '../../components/navigation/navigation';
-import FavoritesItemComponent from '../../components/favorites-item/favorites-item';
+import FavoritesItem from '../../components/favorites-item/favorites-item';
 import {Offer} from '../../types/offer';
 
 type FavoritesPageProps = {
@@ -28,7 +28,7 @@ function FavoritesPage({offers}: FavoritesPageProps): JSX.Element {
           <section className="favorites">
             <h1 className="favorites__title">Saved listing</h1>
             <ul className="favorites__list">
-              {offers.map((offer) => <FavoritesItemComponent key = {offer.id} offer={offer} />)}
+              {offers.map((offer) => <FavoritesItem key = {offer.id} offer={offer} />)}
             </ul>
           </section>
         </div>

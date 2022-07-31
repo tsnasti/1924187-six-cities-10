@@ -1,4 +1,4 @@
-import CardListComponent from '../../components/card-list/card-list';
+import CardList from '../../components/card-list/card-list';
 import Navigation from '../../components/navigation/navigation';
 import Logo from '../../components/logo/logo';
 import {Offer} from '../../types/offer';
@@ -82,7 +82,7 @@ function MainPage({placesCount, offers}: MainPageProps): JSX.Element {
                   <li className="places__option" tabIndex={0}>Top rated first</li>
                 </ul>
               </form>
-              <CardListComponent offers={offers}/>
+              <CardList offers={offers}/>
             </section>
             <div className="cities__right-section">
               <section className="cities__map map"></section>

@@ -1,5 +1,5 @@
-import CommentFormComponent from '../../components/comment-form/comment-form';
-import CommentComponent from '../../components/comment-card/comment-card';
+import CommentForm from '../../components/comment-form/comment-form';
+import CommentCard from '../../components/comment-card/comment-card';
 import Logo from '../../components/logo/logo';
 import Navigation from '../../components/navigation/navigation';
 import {Comment} from '../../types/comment';
@@ -146,9 +146,9 @@ function PropertyPage({comments}: PropertyPageProps): JSX.Element {
               <section className="property__reviews reviews">
                 <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">1</span></h2>
                 <ul className="reviews__list">
-                  {comments.map((comment) => <CommentComponent key = {comment.id} comment={comment} />)}
+                  {comments.map((comment) => <CommentCard key = {comment.id} comment={comment} />)}
                 </ul>
-                <CommentFormComponent />
+                <CommentForm />
               </section>
             </div>
           </div>

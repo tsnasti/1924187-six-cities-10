@@ -1,7 +1,7 @@
 import {useState, ChangeEvent} from 'react';
 import {Rating} from '../../const';
 
-export default function CommentFormComponent () {
+export default function CommentForm () {
   const [formData, setFormData] = useState({
     rating: '',
     comment: ''

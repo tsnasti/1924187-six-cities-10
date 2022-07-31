@@ -4,7 +4,7 @@ type CommentCardProps = {
   comment: Comment;
 };
 
-export default function CommentComponent({comment}: CommentCardProps): JSX.Element {
+export default function CommentCard ({comment}: CommentCardProps): JSX.Element {
   const {rewiew, rating, date, user} = comment;
   return (
     <li className="reviews__item">

@@ -8,7 +8,7 @@ type OfferPageProps = {
 
 const addPremiumStatus = (isPremium: boolean) => isPremium ? <div className="place-card__mark"><span>Premium</span></div> : '';
 
-function CardComponent({offer, setActiveCard}: OfferPageProps): JSX.Element {
+function Card ({offer, setActiveCard}: OfferPageProps): JSX.Element {
   const {id, photoPreview, price, title, type, rating, isPremium, isFavorite} = offer;
   return (
     <article id={String(id)} className="cities__card place-card" onMouseOver={() => setActiveCard(id)}>
@@ -46,4 +46,4 @@ function CardComponent({offer, setActiveCard}: OfferPageProps): JSX.Element {
   );
 }
 
-export default CardComponent;
+export default Card;

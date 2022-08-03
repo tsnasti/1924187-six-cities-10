@@ -5,8 +5,8 @@ export const offers: Offer[] = [
   {
     city: {
       location: {
-        latitude: 52.370216,
-        longitude: 4.895168,
+        latitude: 52.3909553943508,
+        longitude: 4.85309666406198,
         zoom: 10
       },
       name: 'Amsterdam',
@@ -16,8 +16,8 @@ export const offers: Offer[] = [
     title: 'Luxurious apartment at great location',
     photoPreview: 'img/apartment-01.jpg',
     location: {
-      latitude: 52.370216,
-      longitude: 4.895168,
+      latitude: 52.3909553943508,
+      longitude: 4.85309666406198,
       zoom: 10
     },
     photos: ['img/apartment-01.jpg', 'img/apartment-02.jpg', 'img/apartment-03.jpg'],
@@ -40,8 +40,8 @@ export const offers: Offer[] = [
   {
     city: {
       location: {
-        latitude: 52.370216,
-        longitude: 4.895168,
+        latitude: 52.369553943508,
+        longitude:  4.85309666406198,
         zoom: 10
       },
       name: 'Paris',
@@ -51,8 +51,8 @@ export const offers: Offer[] = [
     title: 'Wood and stone place',
     photoPreview: 'img/room.jpg',
     location: {
-      latitude: 52.370216,
-      longitude: 4.895168,
+      latitude: 52.369553943508,
+      longitude: 4.85309666406198,
       zoom: 10
     },
     photos: ['img/studio-01.jpg', 'img/studio-02.jpg', 'img/studio-03.jpg'],
@@ -69,6 +69,76 @@ export const offers: Offer[] = [
       id: 2,
       isPro: false,
       name: 'Richard'
+    }
+  },
+
+  {
+    city: {
+      location: {
+        latitude: 52.3909553943508,
+        longitude: 4.929309666406198,
+        zoom: 10
+      },
+      name: 'Amsterdam',
+    },
+    id: 3,
+    description: 'Nice, cozy, warm big bed apartment',
+    title: 'Canal View Prinsengracht',
+    photoPreview: 'img/apartment-02.jpg',
+    location: {
+      latitude: 52.3909553943508,
+      longitude: 4.929309666406198,
+      zoom: 10
+    },
+    photos: ['img/studio-01.jpg', 'img/studio-02.jpg', 'img/studio-03.jpg'],
+    isPremium: false,
+    price: 1200,
+    type: 'Apartment',
+    isFavorite: false,
+    rating: Rating.Two,
+    roomCount: 1,
+    peopleCount: 2,
+    facilities: ['Wi-Fi', 'kitchen'],
+    user: {
+      avatarUrl: 'img/avatar-angelina.jpg',
+      id: 3,
+      isPro: false,
+      name: 'Chack'
+    }
+  },
+
+  {
+    city: {
+      location: {
+        latitude: 52.3809553943508,
+        longitude: 4.939309666406198,
+        zoom: 10
+      },
+      name: 'Amsterdam',
+    },
+    id: 4,
+    description: 'Great room with extraordinary interior design',
+    title: 'Mountain view',
+    photoPreview: 'img/apartment-03.jpg',
+    location: {
+      latitude: 52.3809553943508,
+      longitude: 4.939309666406198,
+      zoom: 10
+    },
+    photos: ['img/studio-01.jpg', 'img/studio-02.jpg', 'img/studio-03.jpg'],
+    isPremium: true,
+    price: 1200,
+    type: 'Private room',
+    isFavorite: true,
+    rating: Rating.Five,
+    roomCount: 1,
+    peopleCount: 2,
+    facilities: ['Wi-Fi', 'kitchen'],
+    user: {
+      avatarUrl: 'img/avatar-angelina.jpg',
+      id: 4,
+      isPro: false,
+      name: 'Diana'
     }
   },
 ];

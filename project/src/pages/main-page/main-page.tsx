@@ -1,6 +1,8 @@
 import CardList from '../../components/card-list/card-list';
 import Navigation from '../../components/navigation/navigation';
 import Logo from '../../components/logo/logo';
+import Map from '../../components/map/map';
+import {useState} from 'react';
 import {Offer} from '../../types/offer';
 
 type MainPageProps = {
@@ -8,7 +10,9 @@ type MainPageProps = {
   offers: Offer[];
 }
 
-function MainPage({placesCount, offers}: MainPageProps): JSX.Element {
+function MainPage({placesCount, offers} : MainPageProps): JSX.Element {
+  const [activeCard, setActiveCard] = useState<Offer | undefined>(undefined);
+
   return (
     <div className="page page--gray page--main">
       <header className="header">
@@ -82,10 +86,12 @@ function MainPage({placesCount, offers}: MainPageProps): JSX.Element {
                   <li className="places__option" tabIndex={0}>Top rated first</li>
                 </ul>
               </form>
-              <CardList offers={offers}/>
+              <CardList offers={offers} setActiveCard = {setActiveCard}/>
             </section>
             <div className="cities__right-section">
-              <section className="cities__map map"></section>
+              <section className="cities__map map">
+                <Map offers={offers} activeCard={activeCard}/>
+              </section>
             </div>
           </div>
         </div>

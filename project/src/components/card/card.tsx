@@ -3,15 +3,15 @@ import {Offer} from '../../types/offer';
 
 type OfferPageProps = {
   offer: Offer;
-  setActiveCard: (Offer: Offer | undefined) => void | undefined;
+  addActiveCard: ((Offer: Offer | undefined) => void) | undefined;
 };
 
 const addPremiumStatus = (isPremium: boolean) => isPremium ? <div className="place-card__mark"><span>Premium</span></div> : '';
 
-function Card ({offer, setActiveCard}: OfferPageProps): JSX.Element {
+function Card ({offer, addActiveCard}: OfferPageProps): JSX.Element {
   const {id, photoPreview, price, title, type, rating, isPremium, isFavorite} = offer;
   return (
-    <article id={String(id)} className="cities__card place-card" onMouseOver={() => setActiveCard(offer)} onMouseLeave={() => setActiveCard(undefined)}>
+    <article id={String(id)} className="cities__card place-card" onMouseOver={() => addActiveCard ? addActiveCard(offer) : ''} onMouseLeave={() => addActiveCard ? addActiveCard(undefined) : ''}>
       {addPremiumStatus(isPremium)}
       <div className="cities__image-wrapper place-card__image-wrapper">
         <Link to={`/offer/${String(id)}`}>

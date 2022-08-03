@@ -39,7 +39,7 @@ function App({placesCount, offers, comments}: AppScreenProps): JSX.Element {
         />
         <Route
           path={AppRoute.Room}
-          element={<PropertyPage comments={comments}/>}
+          element={<PropertyPage comments={comments} offers={offers}/>}
         />
         <Route
           path="*"

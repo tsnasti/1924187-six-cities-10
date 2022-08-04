@@ -3,13 +3,13 @@ import {Offer} from '../../types/offer';
 
 type OfferPageListProps = {
   offers: Offer[];
-  setActiveCard: (Offer: Offer | undefined) => void | undefined
+  addActiveCard ? : (Offer: Offer | undefined) => void | undefined
 };
 
-export default function CardList ({offers, setActiveCard}: OfferPageListProps): JSX.Element {
+export default function CardList ({offers, addActiveCard}: OfferPageListProps): JSX.Element {
   return (
     <div className="cities__places-list places__list tabs__content">
-      {offers.map((offer) => <Card key = {offer.id} offer={offer} setActiveCard = {setActiveCard}/>)}
+      {offers.map((offer) => <Card key = {offer.id} offer={offer} addActiveCard={addActiveCard}/>)}
     </div>
   );
 }

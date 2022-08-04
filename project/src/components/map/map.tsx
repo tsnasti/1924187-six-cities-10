@@ -7,7 +7,7 @@ import {Offer} from '../../types/offer';
 
 type MapProps = {
   offers: Offer[];
-  activeCard: Offer | undefined
+  activeCard ? : Offer | undefined
 };
 
 const defaultCustomIcon = new Icon({

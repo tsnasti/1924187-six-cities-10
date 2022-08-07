@@ -1,14 +1,14 @@
 import { Link } from 'react-router-dom';
 import {Offer} from '../../types/offer';
 
-type OfferPageProps = {
+type CardProps = {
   offer: Offer;
   addActiveCard: ((Offer: Offer | undefined) => void) | undefined;
 };
 
 const addPremiumStatus = (isPremium: boolean) => isPremium ? <div className="place-card__mark"><span>Premium</span></div> : '';
 
-function Card ({offer, addActiveCard}: OfferPageProps): JSX.Element {
+function Card ({offer, addActiveCard}: CardProps): JSX.Element {
   const {id, photoPreview, price, title, type, rating, isPremium, isFavorite} = offer;
   return (
     <article id={String(id)} className="cities__card place-card" onMouseOver={() => addActiveCard ? addActiveCard(offer) : ''} onMouseLeave={() => addActiveCard ? addActiveCard(undefined) : ''}>

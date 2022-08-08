@@ -79,7 +79,7 @@ export const offers: Offer[] = [
         longitude: 4.929309666406198,
         zoom: 10
       },
-      name: 'Amsterdam',
+      name: 'Paris',
     },
     id: 3,
     description: 'Nice, cozy, warm big bed apartment',
@@ -95,7 +95,7 @@ export const offers: Offer[] = [
     price: 1200,
     type: 'Apartment',
     isFavorite: false,
-    rating: Rating.Two,
+    rating: Rating.Five,
     roomCount: 1,
     peopleCount: 2,
     facilities: ['Wi-Fi', 'kitchen'],

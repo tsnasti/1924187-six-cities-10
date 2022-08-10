@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import {Offer} from '../../types/offer';
+import {addRating} from '../../const';
 
 type CardProps = {
   offer: Offer;
@@ -9,13 +10,13 @@ type CardProps = {
 const addPremiumStatus = (isPremium: boolean) => isPremium ? <div className="place-card__mark"><span>Premium</span></div> : '';
 
 function Card ({offer, addActiveCard}: CardProps): JSX.Element {
-  const {id, photoPreview, price, title, type, rating, isPremium, isFavorite} = offer;
+  const {id, previewImage, price, title, type, rating, isPremium, isFavorite} = offer;
   return (
     <article id={String(id)} className="cities__card place-card" onMouseOver={() => addActiveCard ? addActiveCard(offer) : ''} onMouseLeave={() => addActiveCard ? addActiveCard(undefined) : ''}>
       {addPremiumStatus(isPremium)}
       <div className="cities__image-wrapper place-card__image-wrapper">
         <Link to={`/offer/${String(id)}`}>
-          <img className="place-card__image" src={photoPreview} width="260" height="200" alt="Place image"/>
+          <img className="place-card__image" src={previewImage} width="260" height="200" alt="Place image"/>
         </Link>
       </div>
       <div className="place-card__info">
@@ -33,7 +34,7 @@ function Card ({offer, addActiveCard}: CardProps): JSX.Element {
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{width: `${rating}%`}}></span>
+            <span style={{width: `${addRating(rating)}%`}}></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>

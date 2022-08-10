@@ -8,13 +8,13 @@ type FavoritesItemProps = {
 const addPremiumStatus = (isPremium: boolean) => isPremium ? <div className="place-card__mark"><span>Premium</span></div> : '';
 
 export default function FavoritesCard ({offer}: FavoritesItemProps): JSX.Element {
-  const {id, photoPreview, price, title, type, rating, isPremium} = offer;
+  const {id, previewImage, price, title, type, rating, isPremium} = offer;
   return (
     <article className="favorites__card place-card">
       {addPremiumStatus(isPremium)}
       <div className="favorites__image-wrapper place-card__image-wrapper">
         <Link to={`/offer/${String(id)}`}>
-          <img className="place-card__image" src={photoPreview} width="150" height="110" alt="Place image"/>
+          <img className="place-card__image" src={previewImage} width="150" height="110" alt="Place image"/>
         </Link>
       </div>
       <div className="favorites__card-info place-card__info">

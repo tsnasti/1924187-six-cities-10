@@ -5,15 +5,14 @@ import Logo from '../../components/logo/logo';
 import Navigation from '../../components/navigation/navigation';
 import Map from '../../components/map/map';
 import {Comment} from '../../types/comment';
-import {Offer} from '../../types/offer';
+import {useAppSelector} from '../../hooks';
 
 type PropertyPageProps = {
   comments: Comment[];
-  offers: Offer[];
 }
 
-function PropertyPage({comments, offers}: PropertyPageProps): JSX.Element {
-  const neighbourhoodOffers = offers.slice(0,3);
+function PropertyPage({comments}: PropertyPageProps): JSX.Element {
+  const neighbourhoodOffers = useAppSelector((state) => state.offers).slice(0,3);
 
   return (
     <div className="page">
@@ -157,7 +156,7 @@ function PropertyPage({comments, offers}: PropertyPageProps): JSX.Element {
             </div>
           </div>
           <section className="property__map map">
-            <Map offers={neighbourhoodOffers} />
+            <Map offers={neighbourhoodOffers} city={neighbourhoodOffers[0].city}/>
           </section>
         </section>
         <div className="container">

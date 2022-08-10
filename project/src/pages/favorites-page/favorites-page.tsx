@@ -1,13 +1,10 @@
 import Logo from '../../components/logo/logo';
 import Navigation from '../../components/navigation/navigation';
 import FavoritesItem from '../../components/favorites-item/favorites-item';
-import {Offer} from '../../types/offer';
+import {useAppSelector} from '../../hooks';
 
-type FavoritesPageProps = {
-  offers: Offer[];
-}
-
-function FavoritesPage({offers}: FavoritesPageProps): JSX.Element {
+function FavoritesPage(): JSX.Element {
+  const currentCityOffers = useAppSelector((state) => state.offers);
   return (
     <div className="page">
       <header className="header">
@@ -28,7 +25,7 @@ function FavoritesPage({offers}: FavoritesPageProps): JSX.Element {
           <section className="favorites">
             <h1 className="favorites__title">Saved listing</h1>
             <ul className="favorites__list">
-              {offers.map((offer) => <FavoritesItem key = {offer.id} offer={offer} />)}
+              {currentCityOffers.map((offer) => <FavoritesItem key = {offer.id} offer={offer} />)}
             </ul>
           </section>
         </div>

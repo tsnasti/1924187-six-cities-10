@@ -21,8 +21,8 @@ export type Offer = {
   id: number;
   description: string;
   title: string;
-  photoPreview: string;
-  photos: string[];
+  previewImage: string;
+  images: string[];
   isPremium: boolean;
   price: number;
   type: string;
@@ -30,7 +30,7 @@ export type Offer = {
   location: Location;
   rating: number;
   roomCount: number;
-  peopleCount: number;
-  facilities: string[];
+  maxAdults: number;
+  goods: string[];
   user: User;
 };

@@ -11,6 +11,29 @@ export enum AuthorizationStatus {
   Unknown = 'UNKNOWN',
 }
 
+export enum APIRoute {
+  Offers = '/hotels',
+  Login = '/login',
+  Logout = '/logout',
+}
+
+export function addRating (value: number) {
+  const rating = Math.round(value);
+
+  switch(rating) {
+    case 1:
+      return 20;
+    case 2:
+      return 40;
+    case 3:
+      return 60;
+    case 4:
+      return 80;
+    case 5:
+      return 100;
+  }
+}
+
 export enum Rating {
   One = 20,
   Two = 40,
@@ -37,3 +60,7 @@ export const SORT = {
   HIGH_PRICE: 'Price: high to low',
   TOP_RATED: 'Top rated first',
 };
+
+export const TIMEOUT_SHOW_ERROR = 5000;
+
+export const isCheckedAuth = (authorizationStatus: AuthorizationStatus): boolean => authorizationStatus === AuthorizationStatus.Unknown;

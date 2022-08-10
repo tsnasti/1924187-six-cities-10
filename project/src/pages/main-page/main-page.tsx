@@ -65,7 +65,7 @@ function MainPage(): JSX.Element {
               : <MainEmpty city ={activeCity}/>}
             <div className="cities__right-section">
               <section className="cities__map map">
-                {currentCityOffers.length !== 0 ? <Map offers={currentCityOffers} activeCard={activeCard}/> : ''}
+                {currentCityOffers.length !== 0 ? <Map offers={currentCityOffers} activeCard={activeCard} city={currentCityOffers[0].city}/> : ''}
               </section>
             </div>
           </div>

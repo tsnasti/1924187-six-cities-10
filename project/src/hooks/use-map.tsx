@@ -28,7 +28,7 @@ function useMap (mapRef: MutableRefObject<HTMLElement | null>, city: City) : Map
       setMap(instance);
       isRenderedRef.current = true;
     }
-  }, [mapRef, map, latitude, longitude, zoom]);
+  }, [mapRef, map, latitude, longitude, zoom, city]);
 
   return map;
 }

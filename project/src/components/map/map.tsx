@@ -3,11 +3,12 @@ import 'leaflet/dist/leaflet.css';
 import useMap from '../../hooks/use-map';
 import {useRef, useEffect} from 'react';
 import {URL_MARKER_DEFAULT, URL_MARKER_CURRENT} from '../../const';
-import {Offer} from '../../types/offer';
+import {Offer, City} from '../../types/offer';
 
 type MapProps = {
   offers: Offer[];
   activeCard ? : Offer | undefined
+  city: City;
 };
 
 const defaultCustomIcon = new Icon({
@@ -22,13 +23,18 @@ const currentCustomIcon = new Icon({
   iconAnchor: [20, 40],
 });
 
-function Map ({offers, activeCard}: MapProps): JSX.Element {
+function Map ({offers, activeCard, city}: MapProps): JSX.Element {
 
   const mapRef = useRef(null);
-  const map = useMap(mapRef, offers[0].city);
+  const map = useMap(mapRef, city);
 
   useEffect(() => {
     if (map) {
+      map.setView({
+        lat: city.location.latitude,
+        lng: city.location.longitude,
+      }, city.location.zoom);
+
       offers.forEach((offer) => {
         const marker = new Marker({
           lat: offer.location.latitude,
@@ -44,7 +50,7 @@ function Map ({offers, activeCard}: MapProps): JSX.Element {
           .addTo(map);
       });
     }
-  }, [activeCard, map, offers]);
+  }, [activeCard, city, map, offers]);
 
   return (
     <div

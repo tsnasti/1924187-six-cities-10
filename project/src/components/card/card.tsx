@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import {Offer} from '../../types/offer';
 import {addRating} from '../../const';
 

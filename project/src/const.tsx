@@ -17,29 +17,29 @@ export enum APIRoute {
   Logout = '/logout',
 }
 
-export function addRating (value: number) {
-  const rating = Math.round(value);
-
-  switch(rating) {
-    case 1:
-      return 20;
-    case 2:
-      return 40;
-    case 3:
-      return 60;
-    case 4:
-      return 80;
-    case 5:
-      return 100;
-  }
-}
-
 export enum Rating {
   One = 20,
   Two = 40,
   Three = 60,
   Four = 80,
   Five = 100,
+}
+
+export function addRating (value: number) {
+  const rating = Math.round(value);
+
+  switch(rating) {
+    case 1:
+      return Rating.One;
+    case 2:
+      return Rating.Two;
+    case 3:
+      return Rating.Three;
+    case 4:
+      return Rating.Four;
+    case 5:
+      return Rating.Five;
+  }
 }
 
 export const URL_MARKER_DEFAULT = 'https://assets.htmlacademy.ru/content/intensive/javascript-1/demo/interactive-map/pin.svg';
@@ -64,3 +64,5 @@ export const SORT = {
 export const TIMEOUT_SHOW_ERROR = 5000;
 
 export const isCheckedAuth = (authorizationStatus: AuthorizationStatus): boolean => authorizationStatus === AuthorizationStatus.Unknown;
+
+export const VALID_PASSWORD_LENGTH = 2;

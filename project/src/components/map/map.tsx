@@ -1,4 +1,4 @@
-import {Icon, Marker} from 'leaflet';
+import L, {Icon, Marker} from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import useMap from '../../hooks/use-map';
 import {useRef, useEffect} from 'react';
@@ -7,8 +7,9 @@ import {Offer, City} from '../../types/offer';
 
 type MapProps = {
   offers: Offer[];
-  activeCard ? : Offer | undefined
+  activeCard ? : Offer | undefined;
   city: City;
+  activeOffer ? : Offer | undefined;
 };
 
 const defaultCustomIcon = new Icon({
@@ -23,13 +24,18 @@ const currentCustomIcon = new Icon({
   iconAnchor: [20, 40],
 });
 
-function Map ({offers, activeCard, city}: MapProps): JSX.Element {
+const markerGroup = L.layerGroup();
+
+function Map ({offers, activeCard, city, activeOffer}: MapProps): JSX.Element {
 
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
 
   useEffect(() => {
     if (map) {
+      map.removeLayer(markerGroup);
+      markerGroup.clearLayers();
+
       map.setView({
         lat: city.location.latitude,
         lng: city.location.longitude,
@@ -47,10 +53,22 @@ function Map ({offers, activeCard, city}: MapProps): JSX.Element {
               ? currentCustomIcon
               : defaultCustomIcon
           )
-          .addTo(map);
+          .addTo(markerGroup);
       });
+
+      if (activeOffer) {
+        const marker = new Marker({
+          lat: activeOffer.location.latitude,
+          lng: activeOffer.location.longitude,
+        });
+
+        marker
+          .setIcon(currentCustomIcon)
+          .addTo(markerGroup);
+      }
+      map.addLayer(markerGroup);
     }
-  }, [activeCard, city, map, offers]);
+  }, [activeCard, activeOffer, city, map, offers]);
 
   return (
     <div

@@ -3,6 +3,7 @@ export enum AppRoute {
   Favorites = '/favorites',
   Room = '/offer/:id',
   Root = '/',
+  Error ='*',
 }
 
 export enum AuthorizationStatus {
@@ -15,6 +16,7 @@ export enum APIRoute {
   Offers = '/hotels',
   Login = '/login',
   Logout = '/logout',
+  Comments = '/comments',
 }
 
 export enum Rating {
@@ -42,6 +44,14 @@ export function addRating (value: number) {
   }
 }
 
+export enum RatingStar {
+  One = 1,
+  Two = 2,
+  Three = 3,
+  Four = 4,
+  Five = 5,
+}
+
 export const URL_MARKER_DEFAULT = 'https://assets.htmlacademy.ru/content/intensive/javascript-1/demo/interactive-map/pin.svg';
 export const URL_MARKER_CURRENT = 'https://assets.htmlacademy.ru/content/intensive/javascript-1/demo/interactive-map/main-pin.svg';
 
@@ -61,8 +71,9 @@ export const SORT = {
   TOP_RATED: 'Top rated first',
 };
 
-export const TIMEOUT_SHOW_ERROR = 5000;
-
 export const isCheckedAuth = (authorizationStatus: AuthorizationStatus): boolean => authorizationStatus === AuthorizationStatus.Unknown;
 
 export const VALID_PASSWORD_LENGTH = 2;
+
+export const MIN_SYMBOLS = 50;
+export const MAX_SYMBOLS = 300;

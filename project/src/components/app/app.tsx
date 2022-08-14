@@ -1,6 +1,8 @@
-import {Route, BrowserRouter, Routes} from 'react-router-dom';
+import {Route, Routes} from 'react-router-dom';
 import {useAppSelector} from '../../hooks';
 import {AppRoute, isCheckedAuth} from '../../const';
+import HistoryRouter from '../history-route/history-route';
+import browserHistory from '../../browser-history';
 import LoadingScreen from '../../pages/loading-page/loading-page';
 import MainPage from '../../pages/main-page/main-page';
 import LoginPage from '../../pages/login-page/login-page';
@@ -8,13 +10,8 @@ import FavoritesPage from '../../pages/favorites-page/favorites-page';
 import PropertyPage from '../../pages/property-page/property-page';
 import ErrorPage from '../../pages/error-page/error-page';
 import PrivateRoute from '../private-route/private-route';
-import {Comment} from '../../types/comment';
 
-type AppScreenProps = {
-  comments: Comment[];
-}
-
-function App({comments}: AppScreenProps): JSX.Element {
+function App(): JSX.Element {
   const {authorizationStatus, isDataLoaded} = useAppSelector((state) => state);
 
   if (isCheckedAuth(authorizationStatus) || isDataLoaded) {
@@ -24,7 +21,7 @@ function App({comments}: AppScreenProps): JSX.Element {
   }
 
   return (
-    <BrowserRouter>
+    <HistoryRouter history={browserHistory}>
       <Routes>
         <Route
           path={AppRoute.Root}
@@ -46,14 +43,14 @@ function App({comments}: AppScreenProps): JSX.Element {
         />
         <Route
           path={AppRoute.Room}
-          element={<PropertyPage comments={comments}/>}
+          element={<PropertyPage />}
         />
         <Route
           path="*"
           element={<ErrorPage />}
         />
       </Routes>
-    </BrowserRouter>
+    </HistoryRouter>
   );
 }
 

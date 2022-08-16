@@ -1,7 +1,9 @@
 import {Route, Routes} from 'react-router-dom';
 import {useAppSelector} from '../../hooks';
+import {getAuthorizationStatus} from '../../store/user-process/selectors';
+import {getLoadedDataStatus} from '../../store/offers-data/selectors';
 import {AppRoute, isCheckedAuth} from '../../const';
-import HistoryRouter from '../history-route/history-route';
+import HistoryRoute from '../history-route/history-route';
 import browserHistory from '../../browser-history';
 import LoadingScreen from '../../pages/loading-page/loading-page';
 import MainPage from '../../pages/main-page/main-page';
@@ -12,7 +14,8 @@ import ErrorPage from '../../pages/error-page/error-page';
 import PrivateRoute from '../private-route/private-route';
 
 function App(): JSX.Element {
-  const {authorizationStatus, isDataLoaded} = useAppSelector((state) => state);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
+  const isDataLoaded = useAppSelector(getLoadedDataStatus);
 
   if (isCheckedAuth(authorizationStatus) || isDataLoaded) {
     return (
@@ -21,7 +24,7 @@ function App(): JSX.Element {
   }
 
   return (
-    <HistoryRouter history={browserHistory}>
+    <HistoryRoute history={browserHistory}>
       <Routes>
         <Route
           path={AppRoute.Root}
@@ -50,7 +53,7 @@ function App(): JSX.Element {
           element={<ErrorPage />}
         />
       </Routes>
-    </HistoryRouter>
+    </HistoryRoute>
   );
 }
 

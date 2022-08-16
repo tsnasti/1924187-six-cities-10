@@ -11,19 +11,21 @@ import {fetchOfferAction, fetchCommentsAction, fetchNearbyOffer} from '../../sto
 import {addRating} from '../../const';
 import {useParams} from 'react-router-dom';
 import {AuthorizationStatus} from '../../const';
+import {getAuthorizationStatus} from '../../store/user-process/selectors';
+import {getOffer, getnearbyOffers, getComments} from '../../store/offers-data/selectors';
 
 function PropertyPage(): JSX.Element {
-  const authorization = useAppSelector((state) => state.authorizationStatus);
-  const offer = useAppSelector((state) => state.offer);
-  const comments = useAppSelector((state) => state.comments).slice(0, 10);
-  const nearbyOffers = useAppSelector((state) => state.nearbyOffers).slice(0, 3);
+  const authorization = useAppSelector(getAuthorizationStatus);
+  const offer = useAppSelector(getOffer);
+  const comments = useAppSelector(getComments).slice(0, 10);
+  const nearbyOffers = useAppSelector(getnearbyOffers).slice(0, 3);
   const {id} = useParams();
   const dispatch = useAppDispatch();
 
-  const getOffer = () => {
+  const addOffer = () => {
     dispatch(fetchOfferAction());
   };
-  const getComments = () => {
+  const addComments = () => {
     dispatch(fetchCommentsAction());
   };
 
@@ -32,8 +34,8 @@ function PropertyPage(): JSX.Element {
   };
 
   if (offer === null || offer?.id !== Number(id)) {
-    getOffer();
-    getComments();
+    addOffer();
+    addComments();
     getNearbyOffers();
   }
 
@@ -56,7 +58,7 @@ function PropertyPage(): JSX.Element {
         <section className="property">
           <div className="property__gallery-container container">
             <div className="property__gallery">
-              {offer?.images.map((src) => <PropertyImage key = {src} src={src} />).slice(0,6)}
+              {offer?.images.slice(0,6).map((src) => <PropertyImage key = {src} src={src} />)}
             </div>
           </div>
           <div className="property__container container">

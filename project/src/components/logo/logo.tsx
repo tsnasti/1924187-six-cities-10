@@ -1,4 +1,5 @@
 import {NavLink} from 'react-router-dom';
+import {memo} from 'react';
 
 function Logo(): JSX.Element {
   const activeClassName = 'header__logo-link--active';
@@ -10,4 +11,4 @@ function Logo(): JSX.Element {
   );
 }
 
-export default Logo;
+export default memo(Logo);

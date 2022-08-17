@@ -1,12 +1,13 @@
 import {useAppDispatch, useAppSelector} from '../../hooks';
-import {chooseCity} from '../../store/action';
+import {getCity} from '../../store/offer-process/selectors';
+import {chooseCity} from '../../store/offer-process/offer-process';
 
 type CityItemProps = {
   city: string;
 }
 
 export default function CityItem({city} : CityItemProps): JSX.Element {
-  const activeCity = useAppSelector((state) => state.city);
+  const activeCity = useAppSelector(getCity);
   const dispatch = useAppDispatch();
 
   return (

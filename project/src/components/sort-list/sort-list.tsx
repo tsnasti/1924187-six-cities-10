@@ -1,11 +1,12 @@
 import SortItem from '../sort-item/sort-item';
 import {useAppSelector} from '../../hooks';
-import {useState} from 'react';
+import {useState, memo} from 'react';
+import {getSorting} from '../../store/offer-process/selectors';
 import {SORT} from '../../const';
 
-export default function SortList(): JSX.Element {
+function SortList(): JSX.Element {
   const [options, setOptions] = useState(false);
-  const activeItem = useAppSelector((state) => state.sortItem);
+  const activeItem = useAppSelector(getSorting);
 
   return (
     <form className="places__sorting" action="#" method="get">
@@ -22,3 +23,5 @@ export default function SortList(): JSX.Element {
     </form>
   );
 }
+
+export default memo(SortList);

@@ -2,9 +2,10 @@ import Logo from '../../components/logo/logo';
 import Navigation from '../../components/navigation/navigation';
 import FavoritesItem from '../../components/favorites-item/favorites-item';
 import {useAppSelector} from '../../hooks';
+import {getOffers} from '../../store/offers-data/selectors';
 
 function FavoritesPage(): JSX.Element {
-  const currentCityOffers = useAppSelector((state) => state.offers);
+  const currentCityOffers = useAppSelector(getOffers);
   return (
     <div className="page">
       <header className="header">

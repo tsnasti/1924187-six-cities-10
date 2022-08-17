@@ -1,12 +1,14 @@
 import {Link} from 'react-router-dom';
+import {memo} from 'react';
 import {getEmail} from '../../services/tokens/email';
 import {AuthorizationStatus, AppRoute} from '../../const';
+import {getAuthorizationStatus} from '../../store/user-process/selectors';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import {logoutAction} from '../../store/api-actions';
 
 function Navigation(): JSX.Element {
   const dispatch = useAppDispatch();
-  const authorization = useAppSelector((state) => state.authorizationStatus);
+  const authorization = useAppSelector(getAuthorizationStatus);
 
   if (authorization === AuthorizationStatus.Auth) {
     return (
@@ -38,4 +40,4 @@ function Navigation(): JSX.Element {
   );
 }
 
-export default Navigation;
+export default memo(Navigation);

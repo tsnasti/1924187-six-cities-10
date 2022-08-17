@@ -8,15 +8,18 @@ import SortList from '../../components/sort-list/sort-list';
 import {useState} from 'react';
 import {useAppSelector} from '../../hooks';
 import {Offer} from '../../types/offer';
+import {getCity} from '../../store/offer-process/selectors';
+import {getOffers} from '../../store/offers-data/selectors';
+import {getSorting} from '../../store/offer-process/selectors';
 import {sortingLowPrice, sortingHighPrice, sortingRating} from '../../utils';
 import {SORT} from '../../const';
 
 function MainPage(): JSX.Element {
   const [activeCard, setActiveCard] = useState<Offer | undefined>(undefined);
-  const activeCity = useAppSelector((state) => state.city);
-  const currentCityOffers = useAppSelector((state) => state.offers).filter((offer) => offer.city.name === activeCity);
+  const activeCity = useAppSelector(getCity);
+  const currentCityOffers = useAppSelector(getOffers).filter((offer) => offer.city.name === activeCity);
 
-  switch (useAppSelector((state) => state.sortItem)) {
+  switch (useAppSelector(getSorting)) {
     case SORT.LOW_PRICE: {
       currentCityOffers.sort(sortingLowPrice);
       break;

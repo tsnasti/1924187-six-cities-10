@@ -77,3 +77,9 @@ export const VALID_PASSWORD_LENGTH = 2;
 
 export const MIN_SYMBOLS = 50;
 export const MAX_SYMBOLS = 300;
+
+export enum NameSpace {
+  Data = 'DATA',
+  Offers = 'OFFERS',
+  User = 'USER',
+}

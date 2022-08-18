@@ -1,27 +1,22 @@
 import FavoritesCardComponent from '../favorites-card/favorites-card';
+import FavoritesCity from '../favorites-city/favorites-city';
 import {Offer} from '../../types/offer';
 
 type FavoritesItemProps = {
-  offer: Offer;
+  offers: Offer[];
+  city: string;
 };
 
-export default function FavoritesItem ({offer}: FavoritesItemProps): JSX.Element {
-  const {isFavorite} = offer;
-  const addCity = () => isFavorite ?
-    <div className="locations__item">
-      <a className="locations__item-link" href="#">
-        <span>{offer.city.name}</span>
-      </a>
-    </div>
-    : '';
-  const addFavoriteCard = () => isFavorite ? <FavoritesCardComponent offer={offer}/> : '';
+export default function FavoritesItem ({offers, city}: FavoritesItemProps): JSX.Element {
+  const filteredOffers = offers.filter((offer) => offer.city.name === city);
+
   return (
     <li className="favorites__locations-items">
       <div className="favorites__locations locations locations--current">
-        {addCity()}
+        {<FavoritesCity key = {city} city={city}/>}
       </div>
       <div className="favorites__places">
-        {addFavoriteCard()}
+        {filteredOffers.map((offer) => <FavoritesCardComponent key = {offer.id} offer={offer} />)}
       </div>
     </li>
   );

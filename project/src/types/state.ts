@@ -17,6 +17,7 @@ export type OffersData = {
   offer: Offer | undefined,
   nearbyOffers: Offer[],
   comments: Comment [],
+  favoritesOffers: Offer[] | [],
 };
 
 export type OfferProcess = {

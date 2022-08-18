@@ -1,6 +1,8 @@
 import {Link} from 'react-router-dom';
 import {Offer} from '../../types/offer';
-import {addRating} from '../../const';
+import {addFavoriteAction} from '../../store/api-actions';
+import {useAppDispatch} from '../../hooks';
+import {addRating, FavoriteStatus} from '../../const';
 
 type CardProps = {
   offer: Offer;
@@ -11,6 +13,11 @@ const addPremiumStatus = (isPremium: boolean) => isPremium ? <div className="pla
 
 function Card ({offer, addActiveCard}: CardProps): JSX.Element {
   const {id, previewImage, price, title, type, rating, isPremium, isFavorite} = offer;
+  const dispatch = useAppDispatch();
+  const clickHandle = () => {
+    dispatch(addFavoriteAction({hotelId: id, status: isFavorite ? FavoriteStatus.NotFavorites : FavoriteStatus.IsFavorites}));
+  };
+
   return (
     <article id={String(id)} className="cities__card place-card" onMouseOver={() => addActiveCard ? addActiveCard(offer) : ''} onMouseLeave={() => addActiveCard ? addActiveCard(undefined) : ''}>
       {addPremiumStatus(isPremium)}
@@ -25,7 +32,7 @@ function Card ({offer, addActiveCard}: CardProps): JSX.Element {
             <b className="place-card__price-value">&euro;{price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <button className={`place-card__bookmark-button ${isFavorite ? 'place-card__bookmark-button--active' : ''} button`} type="button">
+          <button className={`place-card__bookmark-button ${isFavorite ? 'place-card__bookmark-button--active' : ''} button`} type="button" onClick={clickHandle}>
             <svg className="place-card__bookmark-icon" width="18" height="19">
               <use xlinkHref="#icon-bookmark"></use>
             </svg>

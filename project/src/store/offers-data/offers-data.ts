@@ -1,7 +1,7 @@
 import {createSlice} from '@reduxjs/toolkit';
 import {NameSpace} from '../../const';
 import {OffersData} from '../../types/state';
-import {fetchOffersAction, fetchOfferAction, fetchNearbyOffer, fetchCommentsAction, addCommentAction} from '../api-actions';
+import {fetchOffersAction, fetchOfferAction, fetchNearbyOffer, fetchCommentsAction, addCommentAction, fetchFavoritesAction, addFavoriteAction} from '../api-actions';
 
 const initialState: OffersData = {
   offers: [],
@@ -9,6 +9,7 @@ const initialState: OffersData = {
   offer: undefined,
   nearbyOffers: [],
   comments: [],
+  favoritesOffers: [],
 };
 
 export const offersData = createSlice({
@@ -35,7 +36,17 @@ export const offersData = createSlice({
       })
       .addCase(addCommentAction.fulfilled, (state, action) => {
         state.comments = action.payload;
+      })
+      .addCase(fetchFavoritesAction.fulfilled, (state, action) => {
+        state.favoritesOffers = action.payload;
+      })
+      .addCase(addFavoriteAction.fulfilled, (state, action) => {
+        if (action.payload.isFavorite === true) {
+          state.favoritesOffers = [...state.favoritesOffers, action.payload];
+        } else {
+          state.favoritesOffers = state.favoritesOffers.filter(({id}) => id !== action.payload.id);
+        }
+        state.offers = state.offers.map((offer) => offer.id === action.payload.id ? {...offer, isFavorite: action.payload.isFavorite} : offer);
       });
   }
 });
-

@@ -7,12 +7,13 @@ import Map from '../../components/map/map';
 import PropertyImage from '../../components/property-image/property-image';
 import PropertyGoods from '../../components/property-goods/property-goods';
 import {useAppSelector, useAppDispatch} from '../../hooks';
-import {fetchOfferAction, fetchCommentsAction, fetchNearbyOffer} from '../../store/api-actions';
-import {addRating} from '../../const';
+import {fetchOfferAction, fetchCommentsAction, fetchNearbyOffer, addFavoriteAction, fetchFavoritesAction} from '../../store/api-actions';
+import {addRating, FavoriteStatus} from '../../const';
 import {useParams} from 'react-router-dom';
 import {AuthorizationStatus} from '../../const';
 import {getAuthorizationStatus} from '../../store/user-process/selectors';
 import {getOffer, getnearbyOffers, getComments} from '../../store/offers-data/selectors';
+import {useEffect} from 'react';
 
 function PropertyPage(): JSX.Element {
   const authorization = useAppSelector(getAuthorizationStatus);
@@ -38,6 +39,18 @@ function PropertyPage(): JSX.Element {
     addComments();
     getNearbyOffers();
   }
+
+  const addFavoritesOffers = () => {
+    dispatch(fetchFavoritesAction());
+  };
+
+  useEffect(() => {
+    addFavoritesOffers();
+  },[]);
+
+  const clickHandle = () => {
+    dispatch(addFavoriteAction({hotelId: offer?.id, status: offer?.isFavorite ? FavoriteStatus.NotFavorites : FavoriteStatus.IsFavorites}));
+  };
 
   return (
     <div className="page">
@@ -68,7 +81,7 @@ function PropertyPage(): JSX.Element {
                 <h1 className="property__name">
                   {offer?.title}
                 </h1>
-                <button className="property__bookmark-button button" type="button">
+                <button className={`property__bookmark-button ${offer?.isFavorite ? 'property__bookmark-button--active' : ''} button`} type="button" onClick={clickHandle}>
                   <svg className="property__bookmark-icon" width="31" height="33">
                     <use xlinkHref="#icon-bookmark"></use>
                   </svg>

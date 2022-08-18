@@ -16,6 +16,11 @@ export type Host = {
   name: string;
 }
 
+export type FavoriteOfferData = {
+  hotelId: number | undefined;
+  status: number;
+}
+
 export type Offer = {
   city: City;
   id: number;

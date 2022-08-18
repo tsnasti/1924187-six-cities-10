@@ -3,12 +3,19 @@ import {memo} from 'react';
 import {getEmail} from '../../services/tokens/email';
 import {AuthorizationStatus, AppRoute} from '../../const';
 import {getAuthorizationStatus} from '../../store/user-process/selectors';
+import {getFavoriteOffers} from '../../store/offers-data/selectors';
 import {useAppDispatch, useAppSelector} from '../../hooks';
-import {logoutAction} from '../../store/api-actions';
+import {logoutAction, fetchFavoritesAction} from '../../store/api-actions';
+import {useEffect} from 'react';
 
 function Navigation(): JSX.Element {
   const dispatch = useAppDispatch();
   const authorization = useAppSelector(getAuthorizationStatus);
+  const favoritesOffers = useAppSelector(getFavoriteOffers);
+
+  useEffect(() => {
+    dispatch(fetchFavoritesAction());
+  },[]);
 
   if (authorization === AuthorizationStatus.Auth) {
     return (
@@ -18,7 +25,7 @@ function Navigation(): JSX.Element {
             <div className="header__avatar-wrapper user__avatar-wrapper">
             </div>
             <span className="header__user-name user__name">{getEmail()}</span>
-            <span className="header__favorite-count">3</span>
+            <span className="header__favorite-count">{favoritesOffers.length}</span>
           </Link>
         </li>
         <li className="header__nav-item">

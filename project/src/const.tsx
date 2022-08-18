@@ -17,6 +17,7 @@ export enum APIRoute {
   Login = '/login',
   Logout = '/logout',
   Comments = '/comments',
+  Favotites = '/favorite',
 }
 
 export enum Rating {
@@ -82,4 +83,9 @@ export enum NameSpace {
   Data = 'DATA',
   Offers = 'OFFERS',
   User = 'USER',
+}
+
+export enum FavoriteStatus {
+  IsFavorites = 1,
+  NotFavorites = 0,
 }

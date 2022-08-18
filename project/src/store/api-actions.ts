@@ -4,7 +4,7 @@ import {AppDispatch, State} from '../types/state';
 import {redirectToRoute} from './action';
 import {saveToken, dropToken} from '../services/tokens/token';
 import {saveEmail, dropEmail} from '../services/tokens/email';
-import {Offer} from '../types/offer';
+import {Offer, FavoriteOfferData} from '../types/offer';
 import {Comment, CommentData} from '../types/comment';
 import {APIRoute, AppRoute} from '../const';
 import {AuthData} from '../types/auth-data';
@@ -109,9 +109,33 @@ export const addCommentAction = createAsyncThunk<Comment[], CommentData, {
   state: State,
   extra: AxiosInstance
 }>(
-  'user/comment',
+  'data/comment',
   async ({hotelId, comment, rating}, {dispatch, extra: api}) => {
     const {data} = await api.post<Comment[]>(`${APIRoute.Comments}/${hotelId}`,{comment, rating});
+    return data;
+  }
+);
+
+export const fetchFavoritesAction = createAsyncThunk<Offer[], undefined, {
+  dispatch: AppDispatch,
+  state: State,
+  extra: AxiosInstance
+}>(
+  'data/fetchFavorites',
+  async (_arg, {dispatch, extra: api}) => {
+    const {data} = await api.get<Offer[]>(APIRoute.Favotites);
+    return data;
+  }
+);
+
+export const addFavoriteAction = createAsyncThunk<Offer, FavoriteOfferData, {
+  dispatch: AppDispatch,
+  state: State,
+  extra: AxiosInstance
+}>(
+  'data/favoriteAction',
+  async ({hotelId, status}, {dispatch, extra: api}) => {
+    const {data} = await api.post<Offer>(`${APIRoute.Favotites}/${hotelId}/${status}`);
     return data;
   }
 );

@@ -1,11 +1,23 @@
 import Logo from '../../components/logo/logo';
 import Navigation from '../../components/navigation/navigation';
 import FavoritesItem from '../../components/favorites-item/favorites-item';
-import {useAppSelector} from '../../hooks';
-import {getOffers} from '../../store/offers-data/selectors';
+import FavoritesEmpty from '../../components/favorites-empty/favorites-empty';
+import {useAppSelector, useAppDispatch} from '../../hooks';
+import {getFavoriteOffers} from '../../store/offers-data/selectors';
+import {fetchFavoritesAction} from '../../store/api-actions';
+import {useEffect} from 'react';
 
 function FavoritesPage(): JSX.Element {
-  const currentCityOffers = useAppSelector(getOffers);
+  const favoritesOffers = useAppSelector(getFavoriteOffers);
+  const dispatch = useAppDispatch();
+  const addFavoritesOffers = () => {
+    dispatch(fetchFavoritesAction());
+  };
+
+  useEffect(() => {
+    addFavoritesOffers();
+  },[]);
+
   return (
     <div className="page">
       <header className="header">
@@ -23,12 +35,14 @@ function FavoritesPage(): JSX.Element {
 
       <main className="page__main page__main--favorites">
         <div className="page__favorites-container container">
-          <section className="favorites">
-            <h1 className="favorites__title">Saved listing</h1>
-            <ul className="favorites__list">
-              {currentCityOffers.map((offer) => <FavoritesItem key = {offer.id} offer={offer} />)}
-            </ul>
-          </section>
+          {favoritesOffers.length !== 0 ?
+            <section className="favorites">
+              <h1 className="favorites__title">Saved listing</h1>
+              <ul className="favorites__list">
+                {[...new Set(favoritesOffers.map((offer) => offer.city.name))].map((cityName) => <FavoritesItem key ={cityName} offers={favoritesOffers} city={cityName} />)}
+              </ul>
+            </section>
+            : <FavoritesEmpty />}
         </div>
       </main>
       <footer className="footer container">

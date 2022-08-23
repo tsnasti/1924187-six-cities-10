@@ -1,15 +1,18 @@
 import {useRef, FormEvent, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
-import {useAppDispatch} from '../../hooks';
+import {useAppDispatch, useAppSelector} from '../../hooks';
 import {loginAction} from '../../store/api-actions';
 import {AuthData} from '../../types/auth-data';
 import {AppRoute, VALID_PASSWORD_LENGTH} from '../../const';
+import {Link} from 'react-router-dom';
+import {getCity} from '../../store/offer-process/selectors';
 import Logo from '../../components/logo/logo';
 
 function LoginPage(): JSX.Element {
   const [validPassword, setValidPassword] = useState<boolean>(true);
   const loginRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
+  const currentCity = useAppSelector(getCity);
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -66,9 +69,9 @@ function LoginPage(): JSX.Element {
           </section>
           <section className="locations locations--login locations--current">
             <div className="locations__item">
-              <a className="locations__item-link" href="#">
-                <span>Amsterdam</span>
-              </a>
+              <Link className="locations__item-link" to={AppRoute.Root}>
+                <span>{currentCity}</span>
+              </Link>
             </div>
           </section>
         </div>

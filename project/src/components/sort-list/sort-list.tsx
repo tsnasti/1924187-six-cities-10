@@ -4,7 +4,11 @@ import {useState, memo} from 'react';
 import {getSorting} from '../../store/offer-process/selectors';
 import {SORT} from '../../const';
 
-function SortList(): JSX.Element {
+type SortListProps = {
+  addSorting: (sortItem: string) => void;
+}
+
+function SortList({addSorting}: SortListProps): JSX.Element {
   const [options, setOptions] = useState(false);
   const activeItem = useAppSelector(getSorting);
 
@@ -18,7 +22,7 @@ function SortList(): JSX.Element {
         </svg>
       </span>
       <ul className={`places__options places__options--custom ${options && 'places__options--opened'}`}>
-        {Array.from(Object.values(SORT)).map((sortItem) => <SortItem key = {sortItem} sortItem={sortItem}/>)}
+        {Array.from(Object.values(SORT)).map((sortItem) => <SortItem key = {sortItem} sortItem={sortItem} addSorting={addSorting}/>)}
       </ul>
     </form>
   );

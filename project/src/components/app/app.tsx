@@ -3,9 +3,7 @@ import {useAppSelector} from '../../hooks';
 import {getAuthorizationStatus} from '../../store/user-process/selectors';
 import {getLoadedDataStatus} from '../../store/offers-data/selectors';
 import {AppRoute, isCheckedAuth} from '../../const';
-import HistoryRoute from '../history-route/history-route';
-import browserHistory from '../../browser-history';
-import LoadingScreen from '../../pages/loading-page/loading-page';
+import LoadingPage from '../../pages/loading-page/loading-page';
 import MainPage from '../../pages/main-page/main-page';
 import LoginPage from '../../pages/login-page/login-page';
 import FavoritesPage from '../../pages/favorites-page/favorites-page';
@@ -19,41 +17,39 @@ function App(): JSX.Element {
 
   if (isCheckedAuth(authorizationStatus) || isDataLoaded) {
     return (
-      <LoadingScreen />
+      <LoadingPage />
     );
   }
 
   return (
-    <HistoryRoute history={browserHistory}>
-      <Routes>
-        <Route
-          path={AppRoute.Root}
-          element={<MainPage />}
-        />
-        <Route
-          path={AppRoute.Login}
-          element={<LoginPage />}
-        />
-        <Route
-          path={AppRoute.Favorites}
-          element={
-            <PrivateRoute
-              authorizationStatus={authorizationStatus}
-            >
-              <FavoritesPage />
-            </PrivateRoute>
-          }
-        />
-        <Route
-          path={AppRoute.Room}
-          element={<PropertyPage />}
-        />
-        <Route
-          path="*"
-          element={<ErrorPage />}
-        />
-      </Routes>
-    </HistoryRoute>
+    <Routes>
+      <Route
+        path={AppRoute.Root}
+        element={<MainPage />}
+      />
+      <Route
+        path={AppRoute.Login}
+        element={<LoginPage />}
+      />
+      <Route
+        path={AppRoute.Favorites}
+        element={
+          <PrivateRoute
+            authorizationStatus={authorizationStatus}
+          >
+            <FavoritesPage />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path={AppRoute.Room}
+        element={<PropertyPage />}
+      />
+      <Route
+        path="*"
+        element={<ErrorPage />}
+      />
+    </Routes>
   );
 }
 

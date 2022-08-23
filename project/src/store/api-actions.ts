@@ -9,7 +9,6 @@ import {Comment, CommentData} from '../types/comment';
 import {APIRoute, AppRoute} from '../const';
 import {AuthData} from '../types/auth-data';
 import {UserData} from '../types/user-data';
-import {useParams} from 'react-router-dom';
 
 export const fetchOffersAction = createAsyncThunk<Offer[], undefined, {
   dispatch: AppDispatch,
@@ -23,14 +22,13 @@ export const fetchOffersAction = createAsyncThunk<Offer[], undefined, {
   }
 );
 
-export const fetchOfferAction = createAsyncThunk<Offer | undefined, undefined, {
+export const fetchOfferAction = createAsyncThunk<Offer | undefined, string, {
   dispatch: AppDispatch,
   state: State,
   extra: AxiosInstance
 }>(
   'data/fetchOffer',
-  async (_arg, {dispatch, extra: api}) => {
-    const {id} = useParams();
+  async (id, {dispatch, extra: api}) => {
     try {
       const {data: offerAction} = await api.get<Offer>(`${APIRoute.Offers}/${id}`);
       return offerAction;
@@ -40,14 +38,13 @@ export const fetchOfferAction = createAsyncThunk<Offer | undefined, undefined, {
   },
 );
 
-export const fetchNearbyOffer = createAsyncThunk<Offer[], undefined, {
+export const fetchNearbyOffer = createAsyncThunk<Offer[], string, {
   dispatch: AppDispatch,
   state: State,
   extra: AxiosInstance
 }>(
   'data/fetchNearbyOffer',
-  async (_arg, {dispatch, extra: api}) => {
-    const {id} = useParams();
+  async (id, {dispatch, extra: api}) => {
     const {data: nearbyOffers} = await api.get<Offer[]>(`${APIRoute.Offers}/${id}/nearby`);
     return nearbyOffers;
   },
@@ -91,14 +88,13 @@ export const logoutAction = createAsyncThunk<void, undefined, {
   },
 );
 
-export const fetchCommentsAction = createAsyncThunk<Comment[], undefined, {
+export const fetchCommentsAction = createAsyncThunk<Comment[], string, {
   dispatch: AppDispatch,
   state: State,
   extra: AxiosInstance
 }>(
   'data/fetchComments',
-  async (_arg, {dispatch, extra: api}) => {
-    const {id} = useParams();
+  async (id, {dispatch, extra: api}) => {
     const {data} = await api.get<Comment[]>(`${APIRoute.Comments}/${id}`);
     return data;
   }

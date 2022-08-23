@@ -3,7 +3,7 @@ import {NameSpace} from '../../const';
 import {OffersData} from '../../types/state';
 import {fetchOffersAction, fetchOfferAction, fetchNearbyOffer, fetchCommentsAction, addCommentAction, fetchFavoritesAction, addFavoriteAction} from '../api-actions';
 
-const initialState: OffersData = {
+export const initialState: OffersData = {
   offers: [],
   isDataLoaded: false,
   offer: undefined,

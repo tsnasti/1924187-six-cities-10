@@ -24,14 +24,20 @@ function PropertyPage(): JSX.Element {
   const dispatch = useAppDispatch();
 
   const addOffer = () => {
-    dispatch(fetchOfferAction());
+    if (id) {
+      dispatch(fetchOfferAction(id));
+    }
   };
   const addComments = () => {
-    dispatch(fetchCommentsAction());
+    if (id) {
+      dispatch(fetchCommentsAction(id));
+    }
   };
 
   const getNearbyOffers = () => {
-    dispatch(fetchNearbyOffer());
+    if (id) {
+      dispatch(fetchNearbyOffer(id));
+    }
   };
 
   if (offer === null || offer?.id !== Number(id)) {
@@ -78,7 +84,7 @@ function PropertyPage(): JSX.Element {
             <div className="property__wrapper">
               {offer?.isPremium && <div className="property__mark"><span>Premium</span></div>}
               <div className="property__name-wrapper">
-                <h1 className="property__name">
+                <h1 className="property__name" data-testid="property-name">
                   {offer?.title}
                 </h1>
                 <button className={`property__bookmark-button ${offer?.isFavorite ? 'property__bookmark-button--active' : ''} button`} type="button" onClick={clickHandle}>

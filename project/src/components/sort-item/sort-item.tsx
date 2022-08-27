@@ -10,6 +10,6 @@ export default function SortItem({sortItem, addSorting} : SortItemProps): JSX.El
   const activeItem = useAppSelector(getSorting);
 
   return (
-    <li className={sortItem === activeItem ? 'places__option--active' : 'places__option'} tabIndex={0} onClick={() => addSorting(sortItem)}>{sortItem}</li>
+    <li className={sortItem === activeItem ? 'places__option--active' : 'places__option'} tabIndex={0} onClick={() => addSorting(sortItem)} data-testid="option">{sortItem}</li>
   );
 }

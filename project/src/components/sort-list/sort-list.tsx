@@ -21,7 +21,7 @@ function SortList({addSorting}: SortListProps): JSX.Element {
           <use xlinkHref="#icon-arrow-select"></use>
         </svg>
       </span>
-      <ul className={`places__options places__options--custom ${options && 'places__options--opened'}`}>
+      <ul className={`places__options places__options--custom ${options && 'places__options--opened'}`} data-testid="option-list">
         {Array.from(Object.values(SORT)).map((sortItem) => <SortItem key = {sortItem} sortItem={sortItem} addSorting={addSorting}/>)}
       </ul>
     </form>

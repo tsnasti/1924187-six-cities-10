@@ -5,8 +5,8 @@ export const makeFakeOffer = (): Offer => ({
   bedrooms: 3,
   city: {
     location: {
-      latitude: 52.370216,
-      longitude: 4.895168,
+      latitude: 52.35514938496378,
+      longitude: 4.673877537499948,
       zoom: 10
     },
     name: 'Amsterdam'
@@ -30,7 +30,7 @@ export const makeFakeOffer = (): Offer => ({
   location: {
     latitude: 52.35514938496378,
     longitude: 4.673877537499948,
-    zoom: 8
+    zoom: 10
   },
   maxAdults: 4,
   previewImage: 'img/1.png',

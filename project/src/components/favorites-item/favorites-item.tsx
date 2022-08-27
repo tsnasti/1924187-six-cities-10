@@ -15,7 +15,7 @@ export default function FavoritesItem ({offers, city}: FavoritesItemProps): JSX.
       <div className="favorites__locations locations locations--current">
         {<FavoritesCity key = {city} city={city}/>}
       </div>
-      <div className="favorites__places">
+      <div className="favorites__places" data-testid="favorites-places">
         {filteredOffers.map((offer) => <FavoritesCardComponent key = {offer.id} offer={offer} />)}
       </div>
     </li>

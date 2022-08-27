@@ -21,7 +21,7 @@ function Navigation(): JSX.Element {
     return (
       <ul className="header__nav-list">
         <li className="header__nav-item user">
-          <Link className="header__nav-link header__nav-link--profile" to={AppRoute.Favorites}>
+          <Link className="header__nav-link header__nav-link--profile" to={AppRoute.Favorites} data-testid="favorites-link">
             <div className="header__avatar-wrapper user__avatar-wrapper">
             </div>
             <span className="header__user-name user__name">{getEmail()}</span>
@@ -38,7 +38,7 @@ function Navigation(): JSX.Element {
   }
   return (
     <li className="header__nav-item user">
-      <Link className="header__nav-link header__nav-link--profile" to={AppRoute.Login}>
+      <Link className="header__nav-link header__nav-link--profile" to={AppRoute.Login} data-testid="login-link">
         <div className="header__avatar-wrapper user__avatar-wrapper">
         </div>
         <span className="header__login">Sign in</span>

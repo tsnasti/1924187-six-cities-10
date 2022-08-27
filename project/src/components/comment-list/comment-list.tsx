@@ -10,7 +10,7 @@ export default function CommentList ({comments}: CommentListProps): JSX.Element 
   const sortedComments = comments.sort(compareDays);
 
   return (
-    <ul className="reviews__list">
+    <ul className="reviews__list" data-testid="reviews-list">
       {sortedComments.map((userComment) => <CommentCard key = {userComment.id} userComment={userComment} />)}
     </ul>
   );

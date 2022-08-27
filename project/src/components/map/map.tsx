@@ -74,6 +74,7 @@ function Map ({offers, activeCard, city, activeOffer}: MapProps): JSX.Element {
     <div
       style={{height: '100%'}}
       ref={mapRef}
+      data-testid="map"
     >
     </div>
   );

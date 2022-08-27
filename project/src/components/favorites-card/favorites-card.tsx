@@ -44,7 +44,7 @@ export default function FavoritesCard ({offer}: FavoritesItemProps): JSX.Element
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
-        <h2 className="place-card__name">
+        <h2 className="place-card__name" data-testid="place-card">
           <Link to={`/offer/${String(id)}`}>{title}</Link>
         </h2>
         <p className="place-card__type">{type}</p>

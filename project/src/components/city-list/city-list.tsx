@@ -8,7 +8,7 @@ type CityListProps = {
 
 function CityList({selectCity}: CityListProps): JSX.Element {
   return (
-    <ul className="locations__list tabs__list">
+    <ul className="locations__list tabs__list" data-testid="locations-container">
       {Array.from(Object.values(CITES)).map((city) => <CityItem key = {city} city={city} selectCity={selectCity}/>)}
     </ul>
   );

@@ -6,7 +6,7 @@ import {addRating, FavoriteStatus} from '../../const';
 
 type CardProps = {
   offer: Offer;
-  addActiveCard: ((Offer: Offer | undefined) => void) | undefined;
+  addActiveCard ? : ((Offer: Offer | undefined) => void) | undefined;
 };
 
 const addPremiumStatus = (isPremium: boolean) => isPremium ? <div className="place-card__mark"><span>Premium</span></div> : '';

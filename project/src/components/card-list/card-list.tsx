@@ -8,7 +8,7 @@ type CardListProps = {
 
 export default function CardList ({offers, addActiveCard}: CardListProps): JSX.Element {
   return (
-    <div className="cities__places-list places__list tabs__content">
+    <div className="cities__places-list places__list tabs__content" data-testid="cards-container">
       {offers.map((offer) => <Card key = {offer.id} offer={offer} addActiveCard={addActiveCard}/>)}
     </div>
   );

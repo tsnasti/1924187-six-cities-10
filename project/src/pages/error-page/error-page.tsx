@@ -16,7 +16,7 @@ function ErrorPage(): JSX.Element {
 
       <section>
         <h1>404. Page not found</h1>
-        <Link to="/">Вернуться на главную</Link>
+        <Link to="/" data-testid="main-link">Вернуться на главную</Link>
       </section>
     </div>
   );

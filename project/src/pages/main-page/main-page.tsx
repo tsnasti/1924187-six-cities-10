@@ -67,7 +67,7 @@ function MainPage(): JSX.Element {
                 <h2 className="visually-hidden">Places</h2>
                 <b className="places__found">{currentCityOffers.length} places to stay in {activeCity}</b>
                 <SortList addSorting={addSorting}/>
-                <CardList offers={currentCityOffers} addActiveCard={setActiveCard}/>
+                <CardList offers={currentCityOffers} addActiveCard={setActiveCard} data-testid="cards"/>
               </section>
               : <MainEmpty city={activeCity}/>}
             <div className="cities__right-section">

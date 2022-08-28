@@ -5,7 +5,7 @@ type PropertyImageProps = {
 function PropertyImage({src}: PropertyImageProps): JSX.Element {
   return (
     <div className="property__image-wrapper">
-      <img className="property__image" src={src} alt="Photo studio"/>
+      <img className="property__image" src={src} alt="Studio"/>
     </div>
   );
 }

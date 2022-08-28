@@ -56,7 +56,7 @@ export enum RatingStar {
 export const URL_MARKER_DEFAULT = 'https://assets.htmlacademy.ru/content/intensive/javascript-1/demo/interactive-map/pin.svg';
 export const URL_MARKER_CURRENT = 'https://assets.htmlacademy.ru/content/intensive/javascript-1/demo/interactive-map/main-pin.svg';
 
-export const CITES = {
+export const CITIES = {
   PARIS: 'Paris',
   COLOGNE: 'Cologne',
   BRUSSELS: 'Brussels',
@@ -74,10 +74,12 @@ export const SORT = {
 
 export const isCheckedAuth = (authorizationStatus: AuthorizationStatus): boolean => authorizationStatus === AuthorizationStatus.Unknown;
 
-export const VALID_PASSWORD_LENGTH = 2;
+export enum ValidateSymbols {
+  Min = 50,
+  Max = 300,
+}
 
-export const MIN_SYMBOLS = 50;
-export const MAX_SYMBOLS = 300;
+export const VALID_PASSWORD_LENGTH = 2;
 
 export enum NameSpace {
   Data = 'DATA',

@@ -2,7 +2,7 @@ import {render, screen} from '@testing-library/react';
 import {createMemoryHistory} from 'history';
 import {Provider} from 'react-redux';
 import {configureMockStore} from '@jedmao/redux-mock-store';
-import {CITES} from '../../const';
+import {CITIES} from '../../const';
 import thunk from 'redux-thunk';
 import HistoryRoute from '../../components/history-route/history-route';
 import CityItem from './city-item';
@@ -12,7 +12,7 @@ const history = createMemoryHistory();
 const mockStore = configureMockStore([thunk]);
 const store = mockStore({
   OFFERS: {
-    city: CITES.PARIS,
+    city: CITIES.PARIS,
   },
 });
 const selectCity = jest.fn();
@@ -22,13 +22,12 @@ describe('Component: CityItem', () => {
     render(
       <Provider store={store}>
         <HistoryRoute history={history}>
-          <CityItem city={CITES.PARIS} selectCity={selectCity}/>
+          <CityItem city={CITIES.PARIS} selectCity={selectCity}/>
         </HistoryRoute>
       </Provider>
     );
 
-    const cityElement = screen.getByText(CITES.PARIS);
-
+    const cityElement = screen.getByText(CITIES.PARIS);
     expect(cityElement).toBeInTheDocument();
   });
 
@@ -36,7 +35,7 @@ describe('Component: CityItem', () => {
     render(
       <Provider store={store}>
         <HistoryRoute history={history}>
-          <CityItem city={CITES.PARIS} selectCity={selectCity}/>
+          <CityItem city={CITIES.PARIS} selectCity={selectCity}/>
         </HistoryRoute>
       </Provider>
     );

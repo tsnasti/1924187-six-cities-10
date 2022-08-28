@@ -3,7 +3,7 @@ import {createMemoryHistory} from 'history';
 import {Provider} from 'react-redux';
 import {Routes, Route} from 'react-router-dom';
 import {configureMockStore} from '@jedmao/redux-mock-store';
-import {CITES} from '../../const';
+import {CITIES, AuthorizationStatus} from '../../const';
 import HistoryRoute from '../../components/history-route/history-route';
 import thunk from 'redux-thunk';
 import LoginPage from './login-page';
@@ -13,8 +13,9 @@ const history = createMemoryHistory();
 const mockStore = configureMockStore([thunk]);
 
 const store = mockStore({
+  USER: {authorizationStatus: AuthorizationStatus.Auth},
   OFFERS: {
-    city: CITES.PARIS,
+    city: CITIES.PARIS,
   },
 });
 

@@ -3,7 +3,7 @@ import {createMemoryHistory} from 'history';
 import {Provider} from 'react-redux';
 import {configureMockStore} from '@jedmao/redux-mock-store';
 import {makeFakeOffer} from '../../test-mocks/test-mocks';
-import {CITES, SORT, AuthorizationStatus} from '../../const';
+import {CITIES, SORT, AuthorizationStatus} from '../../const';
 import HistoryRoute from '../../components/history-route/history-route';
 import thunk from 'redux-thunk';
 import MainPage from './main-page';
@@ -23,7 +23,7 @@ describe('Component: MainPage', () => {
           favoritesOffers: [mockOffer],
         },
         OFFERS: {
-          city: CITES.AMSTERDAM,
+          city: CITIES.AMSTERDAM,
           sortItem: SORT.POPULAR,
         },
       })}
@@ -34,7 +34,7 @@ describe('Component: MainPage', () => {
       </Provider>
     );
 
-    expect(screen.getByText(CITES.AMSTERDAM)).toBeInTheDocument();
+    expect(screen.getByText(CITIES.AMSTERDAM)).toBeInTheDocument();
   });
 
   it('should render correctly without offers', () => {
@@ -47,7 +47,7 @@ describe('Component: MainPage', () => {
           favoritesOffers: [],
         },
         OFFERS: {
-          city: CITES.AMSTERDAM,
+          city: CITIES.AMSTERDAM,
           sortItem: SORT.POPULAR,
         },
       })}

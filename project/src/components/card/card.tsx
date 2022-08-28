@@ -1,8 +1,10 @@
 import {Link} from 'react-router-dom';
 import {Offer} from '../../types/offer';
 import {addFavoriteAction} from '../../store/api-actions';
-import {useAppDispatch} from '../../hooks';
-import {addRating, FavoriteStatus} from '../../const';
+import {useAppDispatch, useAppSelector} from '../../hooks';
+import {addRating, FavoriteStatus, AuthorizationStatus, AppRoute} from '../../const';
+import {redirectToRoute} from '../../store/action';
+import {getAuthorizationStatus} from '../../store/user-process/selectors';
 
 type CardProps = {
   offer: Offer;
@@ -13,9 +15,14 @@ const addPremiumStatus = (isPremium: boolean) => isPremium ? <div className="pla
 
 function Card ({offer, addActiveCard}: CardProps): JSX.Element {
   const {id, previewImage, price, title, type, rating, isPremium, isFavorite} = offer;
+  const authorization = useAppSelector(getAuthorizationStatus);
   const dispatch = useAppDispatch();
   const clickHandle = () => {
-    dispatch(addFavoriteAction({hotelId: id, status: isFavorite ? FavoriteStatus.NotFavorites : FavoriteStatus.IsFavorites}));
+    if (authorization === AuthorizationStatus.Auth) {
+      dispatch(addFavoriteAction({hotelId: id, status: isFavorite ? FavoriteStatus.NotFavorites : FavoriteStatus.IsFavorites}));
+    } else {
+      dispatch(redirectToRoute(AppRoute.Login));
+    }
   };
 
   return (
@@ -23,7 +30,7 @@ function Card ({offer, addActiveCard}: CardProps): JSX.Element {
       {addPremiumStatus(isPremium)}
       <div className="cities__image-wrapper place-card__image-wrapper">
         <Link to={`/offer/${String(id)}`}>
-          <img className="place-card__image" src={previewImage} width="260" height="200" alt="Place image"/>
+          <img className="place-card__image" src={previewImage} width="260" height="200" alt="Place"/>
         </Link>
       </div>
       <div className="place-card__info">

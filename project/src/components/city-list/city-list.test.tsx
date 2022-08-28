@@ -2,7 +2,7 @@ import {render, screen} from '@testing-library/react';
 import {createMemoryHistory} from 'history';
 import {Provider} from 'react-redux';
 import {configureMockStore} from '@jedmao/redux-mock-store';
-import {CITES} from '../../const';
+import {CITIES} from '../../const';
 import thunk from 'redux-thunk';
 import HistoryRoute from '../../components/history-route/history-route';
 import CityList from './city-list';
@@ -11,7 +11,7 @@ const history = createMemoryHistory();
 const mockStore = configureMockStore([thunk]);
 const store = mockStore({
   OFFERS: {
-    city: CITES.PARIS,
+    city: CITIES.PARIS,
   },
 });
 const selectCity = jest.fn();

@@ -1,3 +1,5 @@
+import {Link} from 'react-router-dom';
+
 type FavoritesCityProps = {
   city: string;
 };
@@ -5,9 +7,9 @@ type FavoritesCityProps = {
 export default function FavoritesCity ({city}: FavoritesCityProps): JSX.Element {
   return (
     <div className="locations__item">
-      <a className="locations__item-link" href="#">
+      <Link className="locations__item-link" to="">
         <span>{city}</span>
-      </a>
+      </Link>
     </div>
   );
 }

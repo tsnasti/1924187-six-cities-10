@@ -7,6 +7,7 @@ import {State} from '../../types/state';
 import {addFavoriteAction} from '../../store/api-actions';
 import {Action, ThunkDispatch} from '@reduxjs/toolkit';
 import {api} from '../../store';
+import {AuthorizationStatus} from '../../const';
 import thunk from 'redux-thunk';
 import userEvent from '@testing-library/user-event';
 import HistoryRoute from '../../components/history-route/history-route';
@@ -19,7 +20,10 @@ const fakeOffer = makeFakeOffer();
 describe('Component: Card', () => {
   it('should render correctly', () => {
     render(
-      <Provider store={mockStore({})}>
+      <Provider store={mockStore({
+        USER: {authorizationStatus: AuthorizationStatus.Auth},
+      })}
+      >
         <HistoryRoute history={history}>
           <Card offer={fakeOffer}/>
         </HistoryRoute>
@@ -33,7 +37,9 @@ describe('Component: Card', () => {
   it('should add card in favorites, when user clicked to button', async () => {
     const middlewares = [thunk.withExtraArgument(api)];
     const mockStoreWithThunk = configureMockStore<State, Action, ThunkDispatch<State, typeof api, Action>>(middlewares);
-    const storeThunk = mockStoreWithThunk({});
+    const storeThunk = mockStoreWithThunk({
+      USER: {authorizationStatus: AuthorizationStatus.Auth},
+    });
 
     render(
       <Provider store={storeThunk}>

@@ -1,5 +1,5 @@
 import {useState, ChangeEvent, FormEvent} from 'react';
-import {RatingStar, MIN_SYMBOLS, MAX_SYMBOLS} from '../../const';
+import {RatingStar, ValidateSymbols} from '../../const';
 import {addCommentAction} from '../../store/api-actions';
 import {useAppDispatch} from '../../hooks';
 import {CommentData} from '../../types/comment';
@@ -82,7 +82,7 @@ export default function CommentForm ({hotelId}: CommentFormProps) {
         <p className="reviews__help">
           To submit review please make sure to set <span className="reviews__star">rating</span> and describe your stay with at least <b className="reviews__text-amount">50 characters</b>.
         </p>
-        <button className="reviews__submit form__submit button" type="submit" disabled={formData.comment.length < MIN_SYMBOLS || formData.rating === null || formData.comment.length > MAX_SYMBOLS}>Submit</button>
+        <button className="reviews__submit form__submit button" type="submit" disabled={formData.comment.length < ValidateSymbols.Min || formData.rating === null || formData.comment.length > ValidateSymbols.Max}>Submit</button>
       </div>
     </form>
   );

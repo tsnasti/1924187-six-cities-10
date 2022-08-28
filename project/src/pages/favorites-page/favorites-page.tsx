@@ -10,13 +10,10 @@ import {useEffect} from 'react';
 function FavoritesPage(): JSX.Element {
   const favoritesOffers = useAppSelector(getFavoriteOffers);
   const dispatch = useAppDispatch();
-  const addFavoritesOffers = () => {
-    dispatch(fetchFavoritesAction());
-  };
 
   useEffect(() => {
-    addFavoritesOffers();
-  },[]);
+    dispatch(fetchFavoritesAction());
+  },[dispatch]);
 
   return (
     <div className="page">

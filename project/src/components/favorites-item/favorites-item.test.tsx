@@ -2,7 +2,7 @@ import {render, screen} from '@testing-library/react';
 import {createMemoryHistory} from 'history';
 import {Provider} from 'react-redux';
 import {configureMockStore} from '@jedmao/redux-mock-store';
-import {CITES} from '../../const';
+import {CITIES} from '../../const';
 import {makeFakeOffer} from '../../test-mocks/test-mocks';
 import thunk from 'redux-thunk';
 import HistoryRoute from '../../components/history-route/history-route';
@@ -17,7 +17,7 @@ describe('Component: FavoritesItem', () => {
     render(
       <Provider store={mockStore({})}>
         <HistoryRoute history={history}>
-          <FavoritesItem city={CITES.PARIS} offers={fakeOffers}/>
+          <FavoritesItem city={CITIES.PARIS} offers={fakeOffers}/>
         </HistoryRoute>
       </Provider>
     );

@@ -1,5 +1,6 @@
 import {useAppSelector} from '../../hooks';
 import {getCity} from '../../store/offer-process/selectors';
+import {Link} from 'react-router-dom';
 
 type CityItemProps = {
   city: string;
@@ -11,9 +12,9 @@ export default function CityItem({city, selectCity} : CityItemProps): JSX.Elemen
 
   return (
     <li className="locations__item">
-      <a className={`locations__item-link tabs__item ${city === activeCity ? 'tabs__item--active' : ''}`} href="#" onClick={() => selectCity(city)}>
+      <Link className={`locations__item-link tabs__item ${city === activeCity ? 'tabs__item--active' : ''}`} to="" onClick={() => selectCity(city)}>
         <span>{city}</span>
-      </a>
+      </Link>
     </li>
   );
 }

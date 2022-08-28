@@ -1,5 +1,5 @@
 import {offerProcess, chooseCity, sorting, initialState} from './offer-process';
-import {CITES, SORT} from '../../const';
+import {CITIES, SORT} from '../../const';
 
 describe('Reducer: offerProcess', () => {
   it('without additional parameters should return initial state', () => {
@@ -8,8 +8,8 @@ describe('Reducer: offerProcess', () => {
   });
 
   it('should get city', () => {
-    expect(offerProcess.reducer(initialState, chooseCity(CITES.PARIS)))
-      .toEqual({...initialState, city: CITES.PARIS});
+    expect(offerProcess.reducer(initialState, chooseCity(CITIES.PARIS)))
+      .toEqual({...initialState, city: CITIES.PARIS});
   });
 
   it('should get sorting value', () => {

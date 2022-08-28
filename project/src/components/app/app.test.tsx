@@ -2,7 +2,7 @@ import {render, screen} from '@testing-library/react';
 import {createMemoryHistory} from 'history';
 import {Provider} from 'react-redux';
 import {configureMockStore} from '@jedmao/redux-mock-store';
-import {AuthorizationStatus, AppRoute, CITES, SORT} from '../../const';
+import {AuthorizationStatus, AppRoute, CITIES, SORT} from '../../const';
 import {makeFakeOffer, makeFakeComment} from '../../test-mocks/test-mocks';
 import HistoryRouter from '../history-route/history-route';
 import App from './app';
@@ -23,7 +23,7 @@ const store = mockStore({
     favoritesOffers: [mockOffer],
   },
   OFFERS: {
-    city: CITES.PARIS,
+    city: CITIES.PARIS,
     sortItem: SORT.POPULAR,
   },
 });

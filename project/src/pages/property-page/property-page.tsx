@@ -7,13 +7,13 @@ import Map from '../../components/map/map';
 import PropertyImage from '../../components/property-image/property-image';
 import PropertyGoods from '../../components/property-goods/property-goods';
 import {useAppSelector, useAppDispatch} from '../../hooks';
-import {fetchOfferAction, fetchCommentsAction, fetchNearbyOffer, addFavoriteAction, fetchFavoritesAction} from '../../store/api-actions';
-import {addRating, FavoriteStatus} from '../../const';
+import {fetchOfferAction, fetchCommentsAction, fetchNearbyOffer, addFavoriteAction} from '../../store/api-actions';
+import {addRating, FavoriteStatus, AppRoute} from '../../const';
 import {useParams} from 'react-router-dom';
 import {AuthorizationStatus} from '../../const';
 import {getAuthorizationStatus} from '../../store/user-process/selectors';
 import {getOffer, getnearbyOffers, getComments} from '../../store/offers-data/selectors';
-import {useEffect} from 'react';
+import {redirectToRoute} from '../../store/action';
 
 function PropertyPage(): JSX.Element {
   const authorization = useAppSelector(getAuthorizationStatus);
@@ -46,16 +46,12 @@ function PropertyPage(): JSX.Element {
     getNearbyOffers();
   }
 
-  const addFavoritesOffers = () => {
-    dispatch(fetchFavoritesAction());
-  };
-
-  useEffect(() => {
-    addFavoritesOffers();
-  },[]);
-
   const clickHandle = () => {
-    dispatch(addFavoriteAction({hotelId: offer?.id, status: offer?.isFavorite ? FavoriteStatus.NotFavorites : FavoriteStatus.IsFavorites}));
+    if (authorization === AuthorizationStatus.Auth) {
+      dispatch(addFavoriteAction({hotelId: offer?.id, status: offer?.isFavorite ? FavoriteStatus.NotFavorites : FavoriteStatus.IsFavorites})).then(() => addOffer());
+    } else {
+      dispatch(redirectToRoute(AppRoute.Login));
+    }
   };
 
   return (

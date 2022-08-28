@@ -3,9 +3,11 @@ import {useNavigate} from 'react-router-dom';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import {loginAction} from '../../store/api-actions';
 import {AuthData} from '../../types/auth-data';
-import {AppRoute, VALID_PASSWORD_LENGTH} from '../../const';
+import {VALID_PASSWORD_LENGTH, AuthorizationStatus, AppRoute} from '../../const';
 import {Link} from 'react-router-dom';
 import {getCity} from '../../store/offer-process/selectors';
+import {redirectToRoute} from '../../store/action';
+import {getAuthorizationStatus} from '../../store/user-process/selectors';
 import Logo from '../../components/logo/logo';
 
 function LoginPage(): JSX.Element {
@@ -13,6 +15,7 @@ function LoginPage(): JSX.Element {
   const loginRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
   const currentCity = useAppSelector(getCity);
+  const authorization = useAppSelector(getAuthorizationStatus);
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -37,6 +40,10 @@ function LoginPage(): JSX.Element {
     }
     setValidPassword(false);
   };
+
+  if (authorization === AuthorizationStatus.Auth) {
+    dispatch(redirectToRoute(AppRoute.Root));
+  }
 
   return (
     <div className="page page--gray page--login">

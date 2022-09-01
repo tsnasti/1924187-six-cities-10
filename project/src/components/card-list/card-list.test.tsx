@@ -25,8 +25,7 @@ describe('Component: CardList', () => {
       </Provider>
     );
 
-    const listElement = screen.getByTestId('cards-container');
-
-    expect(listElement).toBeInTheDocument();
+    const itemElement = screen.getByTestId('card');
+    expect(itemElement).toBeInTheDocument();
   });
 });

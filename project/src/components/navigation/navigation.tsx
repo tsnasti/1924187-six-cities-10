@@ -3,19 +3,14 @@ import {memo} from 'react';
 import {getEmail} from '../../services/tokens/email';
 import {AuthorizationStatus, AppRoute} from '../../const';
 import {getAuthorizationStatus} from '../../store/user-process/selectors';
-import {getFavoriteOffers} from '../../store/offers-data/selectors';
+import {getOffers} from '../../store/offers-data/selectors';
 import {useAppDispatch, useAppSelector} from '../../hooks';
-import {logoutAction, fetchFavoritesAction} from '../../store/api-actions';
-import {useEffect} from 'react';
+import {logoutAction} from '../../store/api-actions';
 
 function Navigation(): JSX.Element {
   const dispatch = useAppDispatch();
   const authorization = useAppSelector(getAuthorizationStatus);
-  const favoritesOffers = useAppSelector(getFavoriteOffers);
-
-  useEffect(() => {
-    dispatch(fetchFavoritesAction());
-  },[dispatch]);
+  const favoritesOffers = useAppSelector(getOffers).filter((offer) => offer.isFavorite === true);
 
   if (authorization === AuthorizationStatus.Auth) {
     return (

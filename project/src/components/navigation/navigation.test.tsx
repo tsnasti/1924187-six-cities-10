@@ -12,7 +12,7 @@ import Navigation from './navigation';
 
 const history = createMemoryHistory();
 const mockStore = configureMockStore([thunk]);
-const fakeOffer = makeFakeOffer();
+const fakeOffers = [makeFakeOffer()].filter((offer) => ({...offer, isFavorite: true}));
 
 describe('Component: Navigation', () => {
   it('should render correctly when user auth', () => {
@@ -22,7 +22,7 @@ describe('Component: Navigation', () => {
           authorizationStatus: AuthorizationStatus.Auth,
         },
         DATA: {
-          favoritesOffers: [fakeOffer],
+          offers: fakeOffers,
         },
       })}
       >
@@ -45,7 +45,7 @@ describe('Component: Navigation', () => {
           authorizationStatus: AuthorizationStatus.Auth,
         },
         DATA: {
-          favoritesOffers: [fakeOffer],
+          offers: fakeOffers,
         },
       })}
       >
@@ -76,7 +76,7 @@ describe('Component: Navigation', () => {
           authorizationStatus: AuthorizationStatus.NoAuth,
         },
         DATA: {
-          favoritesOffers: [fakeOffer],
+          offers: [],
         },
       })}
       >
@@ -99,7 +99,7 @@ describe('Component: Navigation', () => {
           authorizationStatus: AuthorizationStatus.NoAuth,
         },
         DATA: {
-          favoritesOffers: [fakeOffer],
+          offers: [],
         },
       })}
       >

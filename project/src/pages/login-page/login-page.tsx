@@ -1,4 +1,4 @@
-import {useRef, FormEvent, useState} from 'react';
+import {useRef, FormEvent, useState, useEffect} from 'react';
 import {useNavigate} from 'react-router-dom';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import {loginAction} from '../../store/api-actions';
@@ -6,12 +6,11 @@ import {AuthData} from '../../types/auth-data';
 import {VALID_PASSWORD_LENGTH, AuthorizationStatus, AppRoute} from '../../const';
 import {Link} from 'react-router-dom';
 import {getCity} from '../../store/offer-process/selectors';
-import {redirectToRoute} from '../../store/action';
 import {getAuthorizationStatus} from '../../store/user-process/selectors';
 import Logo from '../../components/logo/logo';
 
 function LoginPage(): JSX.Element {
-  const [validPassword, setValidPassword] = useState<boolean>(true);
+  const [validData, setValidData] = useState<boolean>(true);
   const loginRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
   const currentCity = useAppSelector(getCity);
@@ -24,10 +23,11 @@ function LoginPage(): JSX.Element {
     dispatch(loginAction(authData));
   };
 
-  const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
+  const handleFormSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
 
     if (loginRef.current !== null
+        && loginRef.current.value.match(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)
         && passwordRef.current !== null
         && passwordRef.current.value.length >= VALID_PASSWORD_LENGTH
         && (passwordRef.current.value.match(/\d[a-zA-Z]|[a-zA-Z]\d/))) {
@@ -35,15 +35,17 @@ function LoginPage(): JSX.Element {
         login: loginRef.current.value,
         password: passwordRef.current.value,
       });
-      setValidPassword(true);
-      navigate(AppRoute.Root);
+      setValidData(true);
+    } else {
+      setValidData(false);
     }
-    setValidPassword(false);
   };
 
-  if (authorization === AuthorizationStatus.Auth) {
-    dispatch(redirectToRoute(AppRoute.Root));
-  }
+  useEffect(() => {
+    if (authorization === AuthorizationStatus.Auth) {
+      navigate(AppRoute.Root);
+    }
+  },[authorization, navigate]);
 
   return (
     <div className="page page--gray page--login">
@@ -61,7 +63,7 @@ function LoginPage(): JSX.Element {
         <div className="page__login-container container">
           <section className="login">
             <h1 className="login__title">Sign in</h1>
-            <form className="login__form form" action="#" method="post" onSubmit={handleSubmit}>
+            <form className="login__form form" action="#" method="post" onSubmit={handleFormSubmit}>
               <div className="login__input-wrapper form__input-wrapper">
                 <label className="visually-hidden">E-mail</label>
                 <input className="login__input form__input" ref={loginRef} type="email" name="email" placeholder="Email" required/>
@@ -71,12 +73,12 @@ function LoginPage(): JSX.Element {
                 <input className="login__input form__input" ref={passwordRef} type="password" name="password" placeholder="Password" required/>
               </div>
               <button className="login__submit form__submit button" type="submit">Sign in</button>
-              {!validPassword ? <span style={{color: 'red'}}>Password is not correct</span> : ''}
+              {!validData ? <span style={{color: 'red'}}>Password or Email is not correct</span> : ''}
             </form>
           </section>
           <section className="locations locations--login locations--current">
             <div className="locations__item">
-              <Link className="locations__item-link" to={AppRoute.Root} data-testid="main-link">
+              <Link className="locations__item-link" to={AppRoute.Root} data-testid="main">
                 <span>{currentCity}</span>
               </Link>
             </div>

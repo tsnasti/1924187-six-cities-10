@@ -17,7 +17,7 @@ function Card ({offer, addActiveCard}: CardProps): JSX.Element {
   const {id, previewImage, price, title, type, rating, isPremium, isFavorite} = offer;
   const authorization = useAppSelector(getAuthorizationStatus);
   const dispatch = useAppDispatch();
-  const clickHandle = () => {
+  const handleButtonClick = () => {
     if (authorization === AuthorizationStatus.Auth) {
       dispatch(addFavoriteAction({hotelId: id, status: isFavorite ? FavoriteStatus.NotFavorites : FavoriteStatus.IsFavorites}));
     } else {
@@ -26,7 +26,7 @@ function Card ({offer, addActiveCard}: CardProps): JSX.Element {
   };
 
   return (
-    <article id={String(id)} className="cities__card place-card" onMouseOver={() => addActiveCard ? addActiveCard(offer) : ''} onMouseLeave={() => addActiveCard ? addActiveCard(undefined) : ''}>
+    <article id={String(id)} className="cities__card place-card" data-testid="card" onMouseOver={() => addActiveCard ? addActiveCard(offer) : ''} onMouseLeave={() => addActiveCard ? addActiveCard(undefined) : ''}>
       {addPremiumStatus(isPremium)}
       <div className="cities__image-wrapper place-card__image-wrapper">
         <Link to={`/offer/${String(id)}`}>
@@ -39,7 +39,7 @@ function Card ({offer, addActiveCard}: CardProps): JSX.Element {
             <b className="place-card__price-value">&euro;{price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <button className={`place-card__bookmark-button ${isFavorite ? 'place-card__bookmark-button--active' : ''} button`} type="button" onClick={clickHandle}>
+          <button className={`place-card__bookmark-button ${isFavorite && authorization === AuthorizationStatus.Auth ? 'place-card__bookmark-button--active' : ''} button`} type="button" onClick={handleButtonClick}>
             <svg className="place-card__bookmark-icon" width="18" height="19">
               <use xlinkHref="#icon-bookmark"></use>
             </svg>
@@ -55,7 +55,7 @@ function Card ({offer, addActiveCard}: CardProps): JSX.Element {
         <h2 className="place-card__name">
           <Link to={`/offer/${String(id)}`}>{title}</Link>
         </h2>
-        <p className="place-card__type">{type}</p>
+        <p className="place-card__type" style={{textTransform: 'capitalize'}}>{type}</p>
       </div>
     </article>
   );

@@ -47,6 +47,8 @@ export const offersData = createSlice({
           state.favoritesOffers = state.favoritesOffers.filter(({id}) => id !== action.payload.id);
         }
         state.offers = state.offers.map((offer) => offer.id === action.payload.id ? {...offer, isFavorite: action.payload.isFavorite} : offer);
+        state.nearbyOffers = state.nearbyOffers.map((offer) => offer.id === action.payload.id ? {...offer, isFavorite: action.payload.isFavorite} : offer);
+        state.offer = state.offer?.id === action.payload.id ? {...state.offer, isFavorite: action.payload.isFavorite} : state.offer;
       });
   }
 });

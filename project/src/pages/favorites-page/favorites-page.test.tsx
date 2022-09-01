@@ -10,7 +10,7 @@ import FavoritesPage from './favorites-page';
 
 const history = createMemoryHistory();
 const mockStore = configureMockStore([thunk]);
-const fakeOffer = makeFakeOffer();
+const fakeOffers = [makeFakeOffer()].filter((offer) => ({...offer, isFavorite: true}));
 
 describe('Component: FavoritesPage', () => {
   it('should render correctly when have added offers', () => {
@@ -20,7 +20,8 @@ describe('Component: FavoritesPage', () => {
           authorizationStatus: AuthorizationStatus.Auth,
         },
         DATA: {
-          favoritesOffers: [fakeOffer],
+          offers: fakeOffers,
+          favoritesOffers: fakeOffers,
         },
       })}
       >
@@ -41,6 +42,7 @@ describe('Component: FavoritesPage', () => {
           authorizationStatus: AuthorizationStatus.Auth,
         },
         DATA: {
+          offers: [],
           favoritesOffers: [],
         },
       })}

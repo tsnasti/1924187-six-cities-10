@@ -50,9 +50,30 @@ describe('Application Routing', () => {
   it('should render "LoginPage" when user navigate to "/login"', () => {
     history.push(AppRoute.Login);
 
-    render(fakeApp);
+    render(
+      <Provider store={mockStore({
+        USER: {authorizationStatus: AuthorizationStatus.NoAuth},
+        DATA: {
+          offers: [mockOffer],
+          isDataLoaded: false,
+          offer: mockOffer,
+          nearbyOffers: [],
+          comments: [mockComment],
+          favoritesOffers: [mockOffer],
+        },
+        OFFERS: {
+          city: CITIES.PARIS,
+          sortItem: SORT.POPULAR,
+        }
+      })}
+      >
+        <HistoryRouter history={history}>
+          <App />
+        </HistoryRouter>
+      </Provider>
+    );
 
-    expect(screen.getByPlaceholderText(/Email/i)).toBeInTheDocument();
+    expect(screen.getByPlaceholderText('Email')).toBeInTheDocument();
     expect(screen.getByPlaceholderText(/Password/i)).toBeInTheDocument();
   });
 

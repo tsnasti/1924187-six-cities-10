@@ -10,45 +10,31 @@ import {useAppSelector, useAppDispatch} from '../../hooks';
 import {fetchOfferAction, fetchCommentsAction, fetchNearbyOffer, addFavoriteAction} from '../../store/api-actions';
 import {addRating, FavoriteStatus, AppRoute} from '../../const';
 import {useParams} from 'react-router-dom';
-import {AuthorizationStatus} from '../../const';
+import {AuthorizationStatus, OFFER_PHOTOS_LENGTH, COMMENTS_LENGTH, NEARBY_OFFERS_LENGTH} from '../../const';
 import {getAuthorizationStatus} from '../../store/user-process/selectors';
 import {getOffer, getnearbyOffers, getComments} from '../../store/offers-data/selectors';
 import {redirectToRoute} from '../../store/action';
+import {useEffect} from 'react';
 
 function PropertyPage(): JSX.Element {
   const authorization = useAppSelector(getAuthorizationStatus);
   const offer = useAppSelector(getOffer);
-  const comments = useAppSelector(getComments).slice(0, 10);
-  const nearbyOffers = useAppSelector(getnearbyOffers).slice(0, 3);
+  const comments = useAppSelector(getComments).slice(0, COMMENTS_LENGTH);
+  const nearbyOffers = useAppSelector(getnearbyOffers).slice(0, NEARBY_OFFERS_LENGTH);
   const {id} = useParams();
   const dispatch = useAppDispatch();
 
-  const addOffer = () => {
+  useEffect(() => {
     if (id) {
       dispatch(fetchOfferAction(id));
-    }
-  };
-  const addComments = () => {
-    if (id) {
       dispatch(fetchCommentsAction(id));
-    }
-  };
-
-  const getNearbyOffers = () => {
-    if (id) {
       dispatch(fetchNearbyOffer(id));
     }
-  };
+  },[dispatch, id]);
 
-  if (offer === null || offer?.id !== Number(id)) {
-    addOffer();
-    addComments();
-    getNearbyOffers();
-  }
-
-  const clickHandle = () => {
+  const handleButtonClick = () => {
     if (authorization === AuthorizationStatus.Auth) {
-      dispatch(addFavoriteAction({hotelId: offer?.id, status: offer?.isFavorite ? FavoriteStatus.NotFavorites : FavoriteStatus.IsFavorites})).then(() => addOffer());
+      dispatch(addFavoriteAction({hotelId: offer?.id, status: offer?.isFavorite ? FavoriteStatus.NotFavorites : FavoriteStatus.IsFavorites}));
     } else {
       dispatch(redirectToRoute(AppRoute.Login));
     }
@@ -73,7 +59,7 @@ function PropertyPage(): JSX.Element {
         <section className="property">
           <div className="property__gallery-container container">
             <div className="property__gallery">
-              {offer?.images.slice(0,6).map((src) => <PropertyImage key = {src} src={src} />)}
+              {offer?.images.slice(0, OFFER_PHOTOS_LENGTH).map((src) => <PropertyImage key = {src} src={src} />)}
             </div>
           </div>
           <div className="property__container container">
@@ -83,8 +69,8 @@ function PropertyPage(): JSX.Element {
                 <h1 className="property__name" data-testid="property-name">
                   {offer?.title}
                 </h1>
-                <button className={`property__bookmark-button ${offer?.isFavorite ? 'property__bookmark-button--active' : ''} button`} type="button" onClick={clickHandle}>
-                  <svg className="property__bookmark-icon" width="31" height="33">
+                <button className={`property__bookmark-button ${offer?.isFavorite ? 'property__bookmark-button--active' : ''} button`} type="button" onClick={handleButtonClick}>
+                  <svg className="property__bookmark-icon place-card__bookmark-icon" width="31" height="33">
                     <use xlinkHref="#icon-bookmark"></use>
                   </svg>
                   <span className="visually-hidden">To bookmarks</span>
@@ -149,7 +135,9 @@ function PropertyPage(): JSX.Element {
         <div className="container">
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
-            <CardList offers={nearbyOffers} />
+            <div className="near-places__list places__list">
+              <CardList offers={nearbyOffers} />
+            </div>
           </section>
         </div>
       </main>

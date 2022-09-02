@@ -8,13 +8,13 @@ import SortList from '../../components/sort-list/sort-list';
 import {useState} from 'react';
 import {useAppSelector, useAppDispatch} from '../../hooks';
 import {Offer} from '../../types/offer';
-import {getCity, sortedOffers} from '../../store/offer-process/selectors';
+import {getCity, getSortedOffers} from '../../store/offer-process/selectors';
 import {chooseCity, sorting} from '../../store/offer-process/offer-process';
 
 function MainPage(): JSX.Element {
   const [activeCard, setActiveCard] = useState<Offer | undefined>(undefined);
   const activeCity = useAppSelector(getCity);
-  const currentCityOffers = useAppSelector(sortedOffers).filter((offer) => offer.city.name === activeCity);
+  const currentCityOffers = useAppSelector(getSortedOffers);
   const dispatch = useAppDispatch();
   const selectCity = (city: string) => dispatch(chooseCity(city));
   const addSorting = (sortItem: string) => dispatch(sorting(sortItem));

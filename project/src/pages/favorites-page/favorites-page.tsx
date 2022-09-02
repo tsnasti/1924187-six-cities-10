@@ -6,6 +6,8 @@ import {useAppSelector, useAppDispatch} from '../../hooks';
 import {getFavoriteOffers} from '../../store/offers-data/selectors';
 import {fetchFavoritesAction} from '../../store/api-actions';
 import {useEffect} from 'react';
+import {Link} from 'react-router-dom';
+import {AppRoute} from '../../const';
 
 function FavoritesPage(): JSX.Element {
   const favoritesOffers = useAppSelector(getFavoriteOffers);
@@ -43,9 +45,9 @@ function FavoritesPage(): JSX.Element {
         </div>
       </main>
       <footer className="footer container">
-        <a className="footer__logo-link" href="main.html">
+        <Link className="footer__logo-link" to={AppRoute.Root}>
           <img className="footer__logo" src="img/logo.svg" alt="6 cities logo" width="64" height="33"/>
-        </a>
+        </Link>
       </footer>
     </div>
   );

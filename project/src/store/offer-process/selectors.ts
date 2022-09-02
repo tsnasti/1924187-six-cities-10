@@ -3,42 +3,31 @@ import {NameSpace} from '../../const';
 import {State} from '../../types/state';
 import {SORT} from '../../const';
 import {sortLowPrice, sortHighPrice, sortRating} from '../../utils';
+import {getOffers} from '../../store/offers-data/selectors';
 
-export const getCity = createSelector(
-  (state: State) => state,
-  (state: State) => {
-    const activeCity = state[NameSpace.Offers].city;
-    return activeCity;
-  }
-);
+export const getCity = (state: State): string => state[NameSpace.Offers].city;
+export const getSorting = (state: State): string => state[NameSpace.Offers].sortItem;
 
-export const getSorting = createSelector(
-  (state: State) => state,
-  (state: State) => {
-    const sortItem = state[NameSpace.Offers].sortItem;
-    return sortItem;
-  }
-);
-
-export const sortedOffers = createSelector(
-  (state: State) => state,
-  (state: State) => {
-    const sortItem = state[NameSpace.Offers].sortItem;
-    const offers = state[NameSpace.Data].offers;
+export const getSortedOffers = createSelector(
+  getSorting,
+  getCity,
+  getOffers,
+  (sortItem, city, offers) => {
+    const sortedOffers = [...offers];
     switch (sortItem) {
       case SORT.LOW_PRICE: {
-        offers.sort(sortLowPrice);
+        sortedOffers.sort(sortLowPrice);
         break;
       }
       case SORT.HIGH_PRICE: {
-        offers.sort(sortHighPrice);
+        sortedOffers.sort(sortHighPrice);
         break;
       }
       case SORT.TOP_RATED: {
-        offers.sort(sortRating);
+        sortedOffers.sort(sortRating);
         break;
       }
     }
-    return offers;
+    return sortedOffers.filter((offer) => offer.city.name === city);
   }
 );

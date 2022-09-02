@@ -26,48 +26,53 @@ const currentCustomIcon = new Icon({
 
 const markerGroup = L.layerGroup();
 
+const addMarkers = (map: L.Map | null, offers: Offer[], activeCard: Offer | undefined, activeOffer: Offer | undefined, city: City) => {
+  if (map) {
+    map.removeLayer(markerGroup);
+    markerGroup.clearLayers();
+
+    map.setView({
+      lat: city.location.latitude,
+      lng: city.location.longitude,
+    }, city.location.zoom);
+
+    offers.forEach((offer) => {
+      const marker = new Marker({
+        lat: offer.location.latitude,
+        lng: offer.location.longitude,
+      });
+
+      marker
+        .setIcon(
+          activeCard === offer
+            ? currentCustomIcon
+            : defaultCustomIcon
+        )
+        .addTo(markerGroup);
+    });
+
+    if (activeOffer) {
+      const marker = new Marker({
+        lat: activeOffer.location.latitude,
+        lng: activeOffer.location.longitude,
+      });
+
+      marker
+        .setIcon(currentCustomIcon)
+        .addTo(markerGroup);
+    }
+    map.addLayer(markerGroup);
+  }
+};
+
 function Map ({offers, activeCard, city, activeOffer}: MapProps): JSX.Element {
 
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
+  addMarkers(map, offers, activeCard, activeOffer, city);
 
   useEffect(() => {
-    if (map) {
-      map.removeLayer(markerGroup);
-      markerGroup.clearLayers();
-
-      map.setView({
-        lat: city.location.latitude,
-        lng: city.location.longitude,
-      }, city.location.zoom);
-
-      offers.forEach((offer) => {
-        const marker = new Marker({
-          lat: offer.location.latitude,
-          lng: offer.location.longitude,
-        });
-
-        marker
-          .setIcon(
-            activeCard === offer
-              ? currentCustomIcon
-              : defaultCustomIcon
-          )
-          .addTo(markerGroup);
-      });
-
-      if (activeOffer) {
-        const marker = new Marker({
-          lat: activeOffer.location.latitude,
-          lng: activeOffer.location.longitude,
-        });
-
-        marker
-          .setIcon(currentCustomIcon)
-          .addTo(markerGroup);
-      }
-      map.addLayer(markerGroup);
-    }
+    addMarkers(map, offers, activeCard, activeOffer, city);
   }, [activeCard, activeOffer, city, map, offers]);
 
   return (
